@@ -23,11 +23,10 @@ const validateLogin = [
 ];
 
 // Log in
-router.post(
-  '/',
-  validateLogin,
-  async (req, res, next) => {
+router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
+
+
 
     const user = await User.unscoped().findOne({
       where: {
@@ -39,11 +38,12 @@ router.post(
     });
 
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
-      const err = new Error('Login failed');
-      err.status = 401;
-      err.title = 'Login failed';
-      err.errors = { credential: 'The provided credentials were invalid.' };
-      return next(err);
+      // const err = new Error('Login failed');
+      // err.status = 401;
+      // err.title = 'Login failed';
+      // err.errors = { credential: 'The provided credentials were invalid.' }; /// WAS GIVEN TO US
+      // return next(err);
+      return res.status(401).json({"message": "Invalid credentials"})
     }
 
     const safeUser = {

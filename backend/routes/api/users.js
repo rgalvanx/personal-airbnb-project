@@ -50,8 +50,8 @@ router.post(
         }
       })
     }
-    
-    console.log(checkUser)
+
+    // console.log(checkUser)
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ email, username, hashedPassword, firstName, lastName });
 
