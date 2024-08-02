@@ -38,7 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: -90,
+        min: {
+          args: -90,
+          msg: 'Must Be between -90 and 90'
+        },
         max: 90
       }
     },
