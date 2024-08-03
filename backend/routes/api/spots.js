@@ -36,6 +36,11 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+  console.log(req.body)
+
+  return res.json();
+})
 
 router.get('/', async (req, res, next) => {
   const spots = await Spot.findAll()
