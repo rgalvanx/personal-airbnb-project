@@ -10,19 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
+      Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
       Review.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Review.init({
     spotId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
+      allowNull: false,
       onDelete: 'CASCADE'
     },
     userId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
+      allowNull: false,
       onDelete: 'CASCADE'
     },
     review: {
