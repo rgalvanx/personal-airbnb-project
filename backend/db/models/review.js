@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   Review.init({
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
       onDelete: 'CASCADE'
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
       onDelete: 'CASCADE'
     },
     review: {
