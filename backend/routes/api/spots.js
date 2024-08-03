@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Spot, User} = require('../../db/models')
+const {Spot, User, SpotImage, Review} = require('../../db/models')
 const {requireAuth} = require('../../utils/auth')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -36,10 +36,40 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+// function currentSpotFormatter(array) {
+//   for(let i = 0; i < array.length; i++) {
+//     let spot = JSON.stringify(array[i])
+//     let spotparsed = JSON.parse(spot);
+//     console.log(spotparsed)
+
+//   }
+// }
+
 router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
   console.log(req.body)
 
   return res.json();
+})
+
+router.get('/current', requireAuth, async (req, res, next) => {
+  const id = req.user.id;
+  const userSpots = await Spot.findAll({
+    where: {
+      id
+    },
+    include: [{
+      model: SpotImage,
+      where: {
+        preview: true
+      }
+    },
+    {  model: Review,
+    }
+  ]
+  })
+  let spotArray = new Array(userSpots)
+
+  return res.json({Spots: userSpots});
 })
 
 router.get('/', async (req, res, next) => {
