@@ -51,7 +51,7 @@ module.exports = {
         {
           ...options,
           unique: true
-        }
+        } , options
     )
   },
   async down(queryInterface, Sequelize) {
