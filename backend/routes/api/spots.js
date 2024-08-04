@@ -56,6 +56,7 @@ function avgRatingFormatter(spot) {
     delete spot.dataValues.Reviews;
     return spot
 }
+
 //Adds a image to a spot
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   const {spotId} = req.params;
@@ -107,6 +108,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
   res.json(updatedSpot)
 })
 
+//DELETE A SPOT
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   if(!spot) {
@@ -140,7 +142,6 @@ router.get('/:spotId', async (req, res, next) => {
   if(!spot) {
     return res.status(404).json({"message": "Spot couldn't be found"})
   }
-
   spot.dataValues.numReviews = spot.dataValues.Reviews.length;
   avgRatingFormatter(spot)
   spot.dataValues.Owner = spot.dataValues.User;
