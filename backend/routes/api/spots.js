@@ -36,21 +36,43 @@ const validateSpot = [
   handleValidationErrors
 ];
 
-// function currentSpotFormatter(array) {
-//   for(let i = 0; i < array.length; i++) {
-//     let spot = JSON.stringify(array[i])
-//     let spotparsed = JSON.parse(spot);
-//     console.log(spotparsed)
+function previewImageFormatter(spot) {
+    spot.dataValues.previewImage = spot.SpotImages[0].url
+    delete spot.dataValues.SpotImages
+    return spot;
+}
 
-//   }
-// }
+function avgRatingFormatter(spot) {
+    let sum = 0;
+    let count = 0;
+    spot.dataValues.Reviews.forEach((rev) => {
+      count++
+      sum+= rev.stars
+    });
+    if(count) {
+      spot.dataValues.avgRating = sum/count;
+    } else {
+      spot.dataValues.avgRating = 0
+    }
+    delete spot.dataValues.Reviews;
+    return spot
+}
 
-router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
-  console.log(req.body)
-
-  return res.json();
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+  const {spotId} = req.params;
+  const spot = await Spot.findByPk(spotId);
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  if(req.user.dataValues.id !== spot.dataValues.ownerId) {
+    return res.status(403).json({"message": "Forbidden"})
+  }
+  const image = await spot.createSpotImage(req.body)
+  const {id, url, preview} = image
+  res.json({id, url, preview})
 })
 
+//RETURNS THE CURRENT USERS SPOTS
 router.get('/current', requireAuth, async (req, res, next) => {
   const id = req.user.id;
   const userSpots = await Spot.findAll({
@@ -59,26 +81,65 @@ router.get('/current', requireAuth, async (req, res, next) => {
     },
     include: [{
       model: SpotImage,
-      where: {
-        preview: true
-      }
+        where: {
+          preview: true
+        }
     },
-    {  model: Review,
+    {
+      model: Review,
     }
   ]
   })
-  let spotArray = new Array(userSpots)
-
+  userSpots.forEach(spot => previewImageFormatter(spot))
+  userSpots.forEach(spot => avgRatingFormatter(spot))
   return res.json({Spots: userSpots});
 })
 
+//EDIT A SPOT
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+  console.log(spot)
+  res.json(spot)
+})
+
+//GET SPOT BY SPOT ID
+router.get('/:spotId', async (req, res, next) => {
+  const {spotId} = req.params;
+  let spot = await Spot.findByPk(spotId, {
+    include: [{
+      model: Review,
+      attributes: ['stars']
+    },
+    {
+      model: SpotImage,
+      attributes: ['id', 'url', 'preview']
+    },
+    {
+      model: User,
+      attributes: ['id', 'firstName', 'lastName']
+    },
+  ]
+  });
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+
+  spot.dataValues.numReviews = spot.dataValues.Reviews.length;
+  avgRatingFormatter(spot)
+  spot.dataValues.Owner = spot.dataValues.User;
+  delete spot.dataValues.User;
+
+  return res.json(spot);
+})
+
+//GET ALL SPOTS
 router.get('/', async (req, res, next) => {
   const spots = await Spot.findAll()
   return res.json({
     Spots:spots
   });
 })
-
+//POST A NEW SPOT
 router.post('/', requireAuth, validateSpot, async(req, res, next) => {
   const {address, city, state, country, lat, lng, name, description, price} = req.body;
   const ownerID = req.user.id;
@@ -94,8 +155,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
     description,
     price
   })
-
-  return res.json(newSpot);
+  return res.status(201).json(newSpot);
 })
 
 module.exports = router;
