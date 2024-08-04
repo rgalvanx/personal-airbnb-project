@@ -41,7 +41,6 @@ function previewImageFormatter(spot) {
     delete spot.dataValues.SpotImages
     return spot;
 }
-
 function avgRatingFormatter(spot) {
     let sum = 0;
     let count = 0;
@@ -57,7 +56,7 @@ function avgRatingFormatter(spot) {
     delete spot.dataValues.Reviews;
     return spot
 }
-
+//Adds a image to a spot
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   const {spotId} = req.params;
   const spot = await Spot.findByPk(spotId);
@@ -98,8 +97,26 @@ router.get('/current', requireAuth, async (req, res, next) => {
 //EDIT A SPOT
 router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
-  console.log(spot)
-  res.json(spot)
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  if(req.user.dataValues.id !== spot.dataValues.ownerId) {
+    return res.status(403).json({"message": "Forbidden"})
+  }
+  const updatedSpot = await spot.update(req.body)
+  res.json(updatedSpot)
+})
+
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  if(req.user.dataValues.id !== spot.dataValues.ownerId) {
+    return res.status(403).json({"message": "Forbidden"})
+  }
+  const destroyed = await spot.destroy();
+  res.json({"message": "Successfully deleted"})
 })
 
 //GET SPOT BY SPOT ID
@@ -128,7 +145,6 @@ router.get('/:spotId', async (req, res, next) => {
   avgRatingFormatter(spot)
   spot.dataValues.Owner = spot.dataValues.User;
   delete spot.dataValues.User;
-
   return res.json(spot);
 })
 
