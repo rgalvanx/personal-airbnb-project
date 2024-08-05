@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {Spot, User, SpotImage, Review} = require('../../db/models')
+const {Spot, User, SpotImage, Review, ReviewImage} = require('../../db/models')
 const {requireAuth} = require('../../utils/auth')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const {previewImageFormatter, avgRatingFormatter} = require('../../utils/formatters')
 
 const validateSpot = [
   check('address')
@@ -32,32 +33,35 @@ const validateSpot = [
     .withMessage('Description is required'),
   check('price')
     .exists({ checkFalsy: true })
-    .isFloat({min: .01}),
+    .isFloat({min: .01})
+    .withMessage('Price per day must be a positive number'),
   handleValidationErrors
 ];
 
-function previewImageFormatter(spot) {
-    spot.dataValues.previewImage = spot.SpotImages[0].url
-    delete spot.dataValues.SpotImages
-    return spot;
-}
-function avgRatingFormatter(spot) {
-    let sum = 0;
-    let count = 0;
-    spot.dataValues.Reviews.forEach((rev) => {
-      count++
-      sum+= rev.stars
-    });
-    if(count) {
-      spot.dataValues.avgRating = sum/count;
-    } else {
-      spot.dataValues.avgRating = 0
-    }
-    delete spot.dataValues.Reviews;
-    return spot
-}
+//GET REVIEWS BY SPOT ID
+router.get('/:spotId/reviews', async(req, res, next) => {
+  const {spotId} = req.params;
+  const spot = await Spot.findByPk(spotId, {
+    include: [{
+        model: Review,
+        include: [{
+            model: User,
+            attributes: ['id', 'firstName', 'lastName']
+        }, {
+            model: ReviewImage,
+            attributes: ['id', 'url']
+        }]
+      }]
+  })
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  return res.json({Reviews: spot.dataValues.Reviews})
+})
+//ADD REVIEW TO SPOT
+// router.post('/:spotId/reviews', requireAuth, async (req, res, next))
 
-//Adds a image to a spot
+//ADD AN IMAGE TO A SPOT
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   const {spotId} = req.params;
   const spot = await Spot.findByPk(spotId);
@@ -77,13 +81,10 @@ router.get('/current', requireAuth, async (req, res, next) => {
   const id = req.user.id;
   const userSpots = await Spot.findAll({
     where: {
-      id
+      ownerId: id
     },
     include: [{
       model: SpotImage,
-        where: {
-          preview: true
-        }
     },
     {
       model: Review,
@@ -151,7 +152,20 @@ router.get('/:spotId', async (req, res, next) => {
 
 //GET ALL SPOTS
 router.get('/', async (req, res, next) => {
-  const spots = await Spot.findAll()
+  const spots = await Spot.findAll({
+    include: [{
+      model: Review,
+      attributes: ['stars']
+    },
+    {
+      model: SpotImage,
+      attributes: ['id', 'url', 'preview']
+    },
+  ]
+  });
+
+  spots.forEach(spot => previewImageFormatter(spot))
+  spots.forEach(spot => avgRatingFormatter(spot))
   return res.json({
     Spots:spots
   });
