@@ -38,6 +38,17 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+const validateReview = [
+  check('review')
+    .exists({checkFalsy: true})
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({checkFalsy: true})
+    .isInt({min: 1, max: 5})
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
+
 //GET REVIEWS BY SPOT ID
 router.get('/:spotId/reviews', async(req, res, next) => {
   const {spotId} = req.params;
@@ -58,8 +69,28 @@ router.get('/:spotId/reviews', async(req, res, next) => {
   }
   return res.json({Reviews: spot.dataValues.Reviews})
 })
+
 //ADD REVIEW TO SPOT
-// router.post('/:spotId/reviews', requireAuth, async (req, res, next))
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+  const {spotId} = req.params;
+  const userId = req.user.id
+  const spot = await Spot.findByPk(spotId, {
+    include: {
+      model: Review
+    }
+  })
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  spot.dataValues.Reviews.forEach((review) => {
+    if(review.userId === userId) {
+      return res.status(500).json({"message": "User already has a review for this spot"})
+    }
+  })
+  const newReview = await spot.createReview({...req.body, userId})
+  return res.json(newReview);
+
+ })
 
 //ADD AN IMAGE TO A SPOT
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
