@@ -5,7 +5,7 @@ const {requireAuth} = require('../../utils/auth')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const {previewImageFormatter, avgRatingFormatter} = require('../../utils/formatters')
-const { checkTodays } = require('../../utils/bookingsValidators')
+const { checkTodays, checkStartEnd, bookingConflict } = require('../../utils/bookingsValidators')
 
 const validateSpot = [
   check('address')
@@ -54,18 +54,41 @@ const validateReview = [
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
   const { spotId } = req.params;
   const { startDate, endDate } = req.body
+  const userId  =  req.user.id
   if(checkTodays(startDate)) {
     return res.status(400).json({
       'message': 'Bad Request',
       'startDate': 'startDate cannot be in the past'
     })
   }
+  if(checkStartEnd(startDate, endDate)) {
+    return res.status(400).json({'message': 'endDate cannot be on or before startDate'})
+  }
   const spot = await Spot.findByPk(spotId, {
     include: [{
       model: Booking,
     }]
   })
-  return res.json(spot)
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  if(userId === spot.dataValues.ownerId) {
+    res.status(403).json({
+      "message": "Forbidden"
+    })
+  }
+  spot.dataValues.Bookings.forEach((booking) => {
+    const errors = bookingConflict(startDate, endDate, booking.startDate, booking.endDate)
+    if(errors.startDate || errors.endDate) {
+      res.status(403).json({
+        'message': "Sorry, this spot is already booked for the specified dates",
+        errors
+      })
+    }
+  })
+
+  const newBooking = await spot.createBooking({userId, startDate, endDate})
+  return res.json(newBooking)
 })
 
 //GET BOOKINGS BT SPOTID
