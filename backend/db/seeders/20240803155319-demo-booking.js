@@ -27,7 +27,19 @@ module.exports = {
     userId: 2,
     startDate: new Date('2024-11-01'),
     endDate: new Date('2024-11-05')
-  }
+  },
+  {
+    spotId: 2,
+    userId: 1,
+    startDate: new Date('1998-11-11'),
+    endDate: new Date('1998-11-16')
+  },
+  {
+    spotId: 2,
+    userId: 1,
+    startDate: new Date('2025-10-10'),
+    endDate: new Date('2025-10-15')
+  },
    ], { validate: true })
   },
 
