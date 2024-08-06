@@ -228,7 +228,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     return res.status(403).json({"message": "Forbidden"})
   }
   await spot.destroy();
-  res.json({"message": "Successfully deleted"})
+  return res.json({"message": "Successfully deleted"})
 })
 
 //GET SPOT BY SPOT ID
