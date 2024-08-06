@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Spot, User, SpotImage, Review, ReviewImage} = require('../../db/models')
+const {Spot, User, SpotImage, Review, ReviewImage, Booking} = require('../../db/models')
 const {requireAuth} = require('../../utils/auth')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -48,6 +48,44 @@ const validateReview = [
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ]
+
+//GET BOOKINGS BT SPOTID
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+  const userId = req.user.id;
+  const { spotId } = req.params;
+  const spot = await Spot.findByPk(spotId, {
+    include: [{
+      model: User,
+      attributes: ['id', 'firstName', 'lastName']
+    },
+    {
+      model: Booking
+    }
+  ]
+  })
+  if(!spot) {
+    return res.status(404).json({"message": "Spot couldn't be found"})
+  }
+  if(userId === spot.dataValues.ownerId) {
+    const bookings = [];
+    spot.dataValues.Bookings.forEach((booking) => {
+      const User = spot.dataValues.User
+      const { id, spotId, userId, startDate, endDate, createdAt, updatedAt } = booking.dataValues;
+      bookings.push({ User, id, spotId, userId, startDate, endDate, createdAt, updatedAt });
+    })
+    return res.json({Bookings: bookings})
+  }
+  if(userId !== spot.dataValues.ownerId) {
+    const bookings = [];
+    spot.dataValues.Bookings.forEach((booking) => {
+      const { spotId, startDate, endDate } = booking.dataValues;
+      bookings.push({ spotId, startDate, endDate})
+    })
+    return res.json({Bookings: bookings})
+  }
+
+  return res.json(spot)
+})
 
 //GET REVIEWS BY SPOT ID
 router.get('/:spotId/reviews', async(req, res, next) => {
