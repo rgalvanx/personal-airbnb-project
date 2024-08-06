@@ -49,8 +49,19 @@ const validateReview = [
   handleValidationErrors
 ]
 
+//CREATE A BOOKING FROM SPOT BASED ON SPOTID
+// router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+//   const { spotId } = req.params;
+//   const spot = await Spot.findByPk(spotId, {
+//     include: [{
+//       model: Booking,
+
+//     }]
+//   })
+// })
+
 //GET BOOKINGS BT SPOTID
-router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
   const userId = req.user.id;
   const { spotId } = req.params;
   const spot = await Spot.findByPk(spotId, {
