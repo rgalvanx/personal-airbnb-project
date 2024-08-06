@@ -5,6 +5,7 @@ const {requireAuth} = require('../../utils/auth')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const {previewImageFormatter, avgRatingFormatter} = require('../../utils/formatters')
+const { checkTodays } = require('../../utils/bookingsValidators')
 
 const validateSpot = [
   check('address')
@@ -50,15 +51,22 @@ const validateReview = [
 ]
 
 //CREATE A BOOKING FROM SPOT BASED ON SPOTID
-// router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
-//   const { spotId } = req.params;
-//   const spot = await Spot.findByPk(spotId, {
-//     include: [{
-//       model: Booking,
-
-//     }]
-//   })
-// })
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+  const { spotId } = req.params;
+  const { startDate, endDate } = req.body
+  if(checkTodays(startDate)) {
+    return res.status(400).json({
+      'message': 'Bad Request',
+      'startDate': 'startDate cannot be in the past'
+    })
+  }
+  const spot = await Spot.findByPk(spotId, {
+    include: [{
+      model: Booking,
+    }]
+  })
+  return res.json(spot)
+})
 
 //GET BOOKINGS BT SPOTID
 router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
