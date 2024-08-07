@@ -300,7 +300,6 @@ router.get('/:spotId', async (req, res, next) => {
 //GET ALL SPOTS
 router.get('/', validateQuery, async (req, res, next) => {
   const options = queryFormatter(req.query)
-  console.log(options)
   const spots = await Spot.findAll({
     where: options.where,
     limit: options.limit,
