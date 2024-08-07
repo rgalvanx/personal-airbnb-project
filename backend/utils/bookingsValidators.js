@@ -22,6 +22,10 @@ function bookingConflict(newStart, newEnd, currentStart, currentEnd) {
     if(newEnd >= currentStart && newEnd <= currentEnd) {
         errors.endDate = "End date conflicts with an existing booking"
     }
+    if(newStart <= currentStart && newEnd >= currentEnd) {
+        errors.startDate = "Start date conflicts with an existing booking"
+        errors.endDate = "End date conflicts with an existing booking"
+    }
     return errors
 }
 
