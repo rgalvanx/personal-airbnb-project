@@ -7,6 +7,7 @@ const { User } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const {Op} = require('sequelize');
 
 const router = express.Router();
 
@@ -43,11 +44,11 @@ router.post(
   async (req, res) => {
     const { email, password, username, firstName, lastName } = req.body;
 
-    const checkUser = await User.findOne({where: {
-      email
+    const checkUsers = await User.findAll({where: {
+      [Op.or]: [email, username]
     }});
     // if user exists send this response
-    if(checkUser !== null) {
+    if(checkUsers !== null) {
       return res.status(500).json({
         "message": "User already exists",
         "errors": {
