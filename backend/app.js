@@ -77,7 +77,6 @@ app.use((err, _req, res, _next) => {
 
   if(isProduction) {
     return res.json({
-      justChecking: 'is this working',
       message: err.message,
       errors: err.errors
     })
