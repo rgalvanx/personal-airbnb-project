@@ -18,9 +18,7 @@ router.use('/spots', spotsRouter);
 router.use('/bookings', bookingsRouter);
 router.use('/reviews', reviewsRouter)
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+
 
 module.exports = router;
 
@@ -53,5 +51,9 @@ module.exports = router;
 //   });
 //   setTokenCookie(res, user);
 //   return res.json({ user: user });
+// });
+
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
 // });
 //************************************************************************ */
