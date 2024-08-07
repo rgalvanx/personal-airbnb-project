@@ -48,7 +48,7 @@ router.post(
       [Op.or]: [{email}, {username}]
     }});
     // if user exists send this response
-    if(checkUsers !== null) {
+    if(checkUsers.length !== 0) {
       return res.status(500).json({
         "message": "User already exists",
         "errors": {
