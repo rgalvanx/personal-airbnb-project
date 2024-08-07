@@ -45,7 +45,7 @@ router.post(
     const { email, password, username, firstName, lastName } = req.body;
 
     const checkUsers = await User.findAll({where: {
-      [Op.or]: [email, username]
+      [Op.or]: [{email}, {username}]
     }});
     // if user exists send this response
     if(checkUsers !== null) {
