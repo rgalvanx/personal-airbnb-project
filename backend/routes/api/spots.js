@@ -95,7 +95,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
   const userId  =  req.user.id
   const errors = checkParams(startDate, endDate);
   if(errors.startDate || errors.endDate) {
-    res.status(400).json({
+    return res.status(400).json({
       'message': 'Bad Request',
       errors
     })
@@ -109,7 +109,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     return res.status(404).json({"message": "Spot couldn't be found"})
   }
   if(userId === spot.dataValues.ownerId) {
-    res.status(403).json({
+    return res.status(403).json({
       "message": "Forbidden"
     })
   }
