@@ -204,7 +204,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
   })
   const newReview = await spot.createReview({...req.body, userId})
-  return res.json(newReview);
+  return res.status(201).json(newReview);
 
  })
 
@@ -220,7 +220,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   }
   const image = await spot.createSpotImage(req.body)
   const {id, url, preview} = image
-  res.json({id, url, preview})
+  res.status(201).json({id, url, preview})
 })
 
 //RETURNS THE CURRENT USERS SPOTS
