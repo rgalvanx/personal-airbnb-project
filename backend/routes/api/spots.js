@@ -145,6 +145,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
   if(!spot) {
     return res.status(404).json({"message": "Spot couldn't be found"})
   }
+  ///I think we may be adding the wrong user to the return bookings
   if(userId === spot.dataValues.ownerId) {
     const bookings = [];
     spot.dataValues.Bookings.forEach((booking) => {
