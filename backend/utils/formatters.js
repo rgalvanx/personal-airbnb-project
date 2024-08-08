@@ -1,5 +1,6 @@
 function previewImageFormatter(spot) {
   if(spot.dataValues.SpotImages.length === 0) {
+    spot.dataValues.preview = 'no current images'
     delete spot.dataValues.SpotImages
     return spot;
   }
