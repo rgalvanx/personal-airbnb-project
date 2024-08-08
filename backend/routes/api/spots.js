@@ -341,7 +341,9 @@ router.get('/', validateQuery, async (req, res, next) => {
   spots.forEach(spot => previewImageFormatter(spot))
   spots.forEach(spot => avgRatingFormatter(spot))
   return res.json({
-    Spots:spots
+    Spots:spots,
+    page: options.page,
+    size: options.size
   });
 })
 

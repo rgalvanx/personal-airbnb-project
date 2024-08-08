@@ -15,6 +15,8 @@ function queryFormatter(query) {
     } else {
         size = parseInt(size)
     }
+    options.page = page;
+    options.size = size;
 
     if(maxLat !== undefined) parseInt(maxLat);
     if(minLat !== undefined) parseInt(minLat);
