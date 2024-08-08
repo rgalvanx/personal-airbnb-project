@@ -35,6 +35,9 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     if(!booking) {
         return res.status(404).json({"message": "Booking couldn't be found"})
     }
+    if(expiredBooking(booking.dataValues.endDate)) {
+        return res.status(403).json({"message": "Past bookings can't be modified"})
+    }
     if(userId !== booking.dataValues.userId) {
         return res.status(403).json({"message": "Forbidden"});
     }
@@ -45,16 +48,13 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         errors
       })
     }
-    if(expiredBooking(booking.dataValues.endDate)) {
-        return res.status(403).json({"message": "Past bookings can't be modified"})
-    }
     const { spotId } = booking.dataValues;
     const spot = await Spot.findByPk(spotId, {
         include: [{
             model: Booking,
         }]
     });
-    
+
     for(let i = 0; i < spot.dataValues.Bookings.length; i ++) {
         const booking = spot.dataValues.Bookings[i];
         if(booking.id !== Number(bookingId)) {
