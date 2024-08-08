@@ -113,6 +113,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
       "message": "Forbidden"
     })
   }
+  /// FIX THE FOR EACH LOOOP HERE
   spot.dataValues.Bookings.forEach((booking) => {
     const errors = bookingConflict(startDate, endDate, booking.startDate, booking.endDate)
     if(errors.startDate || errors.endDate) {

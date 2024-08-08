@@ -54,6 +54,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             model: Booking,
         }]
     });
+    //NEEDS TO USE A CONDITIONAL INSTEAD OF RETURNING
     spot.dataValues.Bookings.forEach((booking) => {
         if(booking.id !== Number(bookingId)) {
             const errors = bookingConflict(startDate, endDate, booking.startDate, booking.endDate)
