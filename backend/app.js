@@ -76,7 +76,7 @@ app.use((err, _req, res, _next) => {
   console.error(err);
 
   if(err.message === "Authentication required") {
-    return res.json({"message": "Authentication required"})
+    return res.status(401).json({"message": "Authentication required"})
   }
 
   if(isProduction) {
