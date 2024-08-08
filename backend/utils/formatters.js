@@ -25,7 +25,7 @@ function avgRatingFormatter(spot) {
   if(count) {
     spot.dataValues.avgRating = sum/count;
   } else {
-    spot.dataValues.avgRating = 'no reviews yet'
+    spot.dataValues.avgRating = 'no current reviews'
   }
   delete spot.dataValues.Reviews;
   return spot
