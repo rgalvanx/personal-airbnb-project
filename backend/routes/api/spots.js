@@ -227,7 +227,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   }
   const image = await spot.createSpotImage(req.body)
   const {id, url, preview} = image
-  res.status(201).json({id, url, preview})
+  return res.status(201).json({id, url, preview})
 })
 
 //RETURNS THE CURRENT USERS SPOTS
@@ -260,7 +260,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
     return res.status(403).json({"message": "Forbidden"})
   }
   const updatedSpot = await spot.update(req.body)
-  res.json(updatedSpot)
+  return res.json(updatedSpot)
 })
 
 //DELETE A SPOT
