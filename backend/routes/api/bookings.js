@@ -54,18 +54,20 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             model: Booking,
         }]
     });
-    //NEEDS TO USE A CONDITIONAL INSTEAD OF RETURNING
-    spot.dataValues.Bookings.forEach((booking) => {
+    
+    for(let i = 0; i < spot.dataValues.Bookings.length; i ++) {
+        const booking = spot.dataValues.Bookings[i];
         if(booking.id !== Number(bookingId)) {
             const errors = bookingConflict(startDate, endDate, booking.startDate, booking.endDate)
             if(errors.startDate || errors.endDate) {
                 return res.status(403).json({
-                  'message': "Sorry, this spot is already booked for the specified dates",
-                  errors
+                    'message': "Sorry, this spot is already booked for the specified dates",
+                    errors
                 })
             }
         }
-    })
+    }
+
     const newBooking = await booking.update(req.body)
     return res.json(newBooking)
 })

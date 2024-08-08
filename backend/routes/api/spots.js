@@ -116,8 +116,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
       "message": "Forbidden"
     })
   }
-  /// FIX THE FOR EACH LOOOP HERE
-  spot.dataValues.Bookings.forEach((booking) => {
+
+  for(let i = 0; i < spot.dataValues.Bookings.length; i ++) {
+    const booking = spot.dataValues.Bookings[i];
     const errors = bookingConflict(startDate, endDate, booking.startDate, booking.endDate)
     if(errors.startDate || errors.endDate) {
       return res.status(403).json({
@@ -125,7 +126,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         errors
       })
     }
-  })
+  }
 
   const newBooking = await spot.createBooking({userId, startDate, endDate})
   return res.status(201).json(newBooking)
