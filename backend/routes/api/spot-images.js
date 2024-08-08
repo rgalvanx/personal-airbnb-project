@@ -17,7 +17,20 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     if(userId !== image.dataValues.Spot.ownerId) {
         return res.status(403).json({'message': 'Forbidden'});
     }
+    let previewFlag = false;
+    const spotId = image.dataValues.spotId
+    if(image.preview = true) previewFlag = true;
     await image.destroy();
+    if(previewFlag) {
+        const newPreview = await SpotImage.findOne({
+            where: { spotId }
+        })
+        console.log(newPreview)
+        if(newPreview) {
+            newPreview.preview = true;
+            await newPreview.save();
+        }
+    }
 
     return res.json({"message": "Successfully deleted"});
 })

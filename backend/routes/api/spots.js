@@ -142,7 +142,11 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
       attributes: ['id', 'firstName', 'lastName']
     },
     {
-      model: Booking
+      model: Booking,
+      include: [{
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      }]
     }
   ]
   })
@@ -153,8 +157,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
   if(userId === spot.dataValues.ownerId) {
     const bookings = [];
     spot.dataValues.Bookings.forEach((booking) => {
-      const User = spot.dataValues.User
-      const { id, spotId, userId, startDate, endDate, createdAt, updatedAt } = booking.dataValues;
+      const { User, id, spotId, userId, startDate, endDate, createdAt, updatedAt } = booking.dataValues;
       bookings.push({ User, id, spotId, userId, startDate, endDate, createdAt, updatedAt });
     })
     return res.json({Bookings: bookings})
@@ -225,6 +228,18 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   }
   if(req.user.dataValues.id !== spot.dataValues.ownerId) {
     return res.status(403).json({"message": "Forbidden"})
+  }
+  if(req.body.preview === true) {
+    const spotImage = await SpotImage.findOne({
+      where: {
+        spotId,
+        preview: true
+      }
+    })
+    if(spotImage){
+      spotImage.preview = false;
+      await spotImage.save()
+    }
   }
   const image = await spot.createSpotImage(req.body)
   const {id, url, preview} = image
