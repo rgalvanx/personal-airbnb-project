@@ -35,7 +35,8 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     if(!booking) {
         return res.status(404).json({"message": "Booking couldn't be found"})
     }
-    if(expiredBooking(booking.dataValues.endDate)) {
+    if(expiredBooking(booking.dataValues.endDate) || expiredBooking(booking.dataValues.startDate)) {
+        console.log("in the cond")
         return res.status(403).json({"message": "Past bookings can't be modified"})
     }
     if(userId !== booking.dataValues.userId) {
