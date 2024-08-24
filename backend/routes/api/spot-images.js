@@ -25,7 +25,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         const newPreview = await SpotImage.findOne({
             where: { spotId }
         })
-        console.log(newPreview)
+
         if(newPreview) {
             newPreview.preview = true;
             await newPreview.save();

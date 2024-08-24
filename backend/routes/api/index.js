@@ -44,7 +44,7 @@ module.exports = router;
 //   res.json({ requestBody: req.body });
 // });
 
-// // GET /api/set-token-cookie
+// // // GET /api/set-token-cookie
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
 // router.get('/set-token-cookie', async (_req, res) => {
@@ -57,7 +57,7 @@ module.exports = router;
 //   return res.json({ user: user });
 // });
 
-// router.post('/test', (req, res) => {
-//   res.json({ requestBody: req.body });
-// });
+router.post('/test', (req, res) => {
+  res.json({ requestBody: req.body });
+});
 //************************************************************************ */

@@ -20,7 +20,7 @@ const validateReview = [
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
   const userId = req.user.id
   const {reviewId} = req.params
-  console.log(reviewId);
+
   const review = await Review.findByPk(reviewId, {
     include: [{
       model: ReviewImage
