@@ -1,0 +1,12 @@
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home {
+    padding: 10px 10px;
+}
+
+.icon {
+    padding: 10px 10px;
+}

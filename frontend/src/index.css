@@ -1,1 +1,6 @@
 /* TODO: Add sitewide styles */
+.SPOTS {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

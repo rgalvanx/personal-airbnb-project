@@ -45,7 +45,7 @@ function ProfileButton({ user }) {
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>

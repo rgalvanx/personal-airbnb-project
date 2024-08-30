@@ -1,0 +1,77 @@
+.add_spot {
+    display: flex;
+    align-items: left center;
+    flex-direction: column;
+    padding: 20px 100px 20px 100px;
+}
+
+.starting_spot {
+    padding: 10px 0px
+}
+
+.last_input {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: black solid 2px;
+}
+
+.description_box {
+    height:  150px;
+}
+
+.spot_description {
+    display: flex;
+    align-items: left center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: black solid 2px;
+}
+
+.spot_input {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-top: 5px;
+}
+
+.spot_title {
+    display: flex;
+    align-items: left center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: black solid 2px;
+}
+
+.spot_price {
+    display: flex;
+    align-items: left center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: black solid 2px;
+}
+
+.bottom_price {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.spot_price_input {
+    margin-left: 10px;
+}
+
+.spot_photos {
+    display: flex;
+    align-items: left center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: black solid 2px;
+}
+
+.submit {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}

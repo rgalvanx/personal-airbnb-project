@@ -45,6 +45,18 @@ module.exports = {
         name: 'Luxury Villa',
         description: 'A luxurious villa with a beautiful view.',
         price: 500.00,
+      },
+      {
+        ownerId: 3,
+        address: '123 StreetName St',
+        city: 'Los Angeles',
+        state: 'CA',
+        country: 'USA',
+        lat: 38.0521,
+        lng: -120.2437,
+        name: 'Luxury Villa',
+        description: 'A luxurious villa with a beautiful view.',
+        price: 500.00,
       }
     ], { validate: true });
   },
