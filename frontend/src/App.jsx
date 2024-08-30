@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
-import SpotList from './components/SpotList/SpotList';
-import SpotDetail from './components/SpotList/SpotDetail';
+import AllSpots from './components/AllSpots/AllSpots';
+import SpotDetail from './component/AllSpots/SpotDetail';
 import AddSpot from './components/AddSpot/AddSpot';
 
 function Layout() {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <div className='AllSpots'><SpotList /></div>
+        element: <div className='AllSpots'><AllSpots /></div>
       },
       {
         path: '/spots/:spotId',

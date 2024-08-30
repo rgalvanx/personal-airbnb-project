@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadAllSpotsThunk } from "../../store/spot";
-import './SpotList.css'
+import './AllSpots.css'
 
-const SpotList = () => {
+const AllSpots = () => {
     const dispatch = useDispatch();
     const spots = useSelector(state => state.spots);
     console.log('homepage', spots);
@@ -41,4 +41,4 @@ const SpotList = () => {
     ))
 }
 
-export default SpotList;
+export default AllSpots;
