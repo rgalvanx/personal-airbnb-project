@@ -1,0 +1,33 @@
+#root {
+    height:  100vh;
+}
+
+.spot_images {
+    display: grid;
+    grid-template-areas:
+    "a a b "
+    "a a c "
+    ". . .";
+    height: 300px;
+}
+
+.reserve_button {
+    display: flex;
+    height: 50px;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    margin-right: 40px;
+}
+
+.spot_info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: black 1px solid;
+}
+
+.previewImg {
+    height: 200px;
+}

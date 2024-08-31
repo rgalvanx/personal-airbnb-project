@@ -8,14 +8,15 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul className='navbar' style={{ listStyle: 'none'}}>
-      <li className='home'style={{ listStyleType: 'none'}}>
+      <li className='left_nav'style={{ listStyleType: 'none'}}>
         <NavLink to="/">Home</NavLink>
       </li>
       {isLoaded && (
-        <li className='icon' style={{ listStyleType: 'none'}}>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
+          <li className='right_nav' style={{ listStyleType: 'none'}}>
+            {sessionUser && <li><NavLink to='/spots/new' className='create_spot'>Create a spot</NavLink></li>}
+            <ProfileButton user={sessionUser} />
+          </li>
+        )}
     </ul>
   );
 }

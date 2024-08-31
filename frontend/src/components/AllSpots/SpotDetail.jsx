@@ -7,7 +7,8 @@ import './SpotDetail.css'
 const SpotDetail = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const spot = useSelector(( state ) => state.spots[spotId]);
+    const spot = useSelector(state => state.spots[spotId]);
+    const sessionUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
@@ -22,14 +23,16 @@ const SpotDetail = () => {
     console.log(spot)
 
     return (
-        <div className="">
+        <div className="spot_details">
             <h2>{spot.name}</h2>
             <p>{spot.city}, {spot.state}, {spot.country}</p>
             <div className="spot_images">
                 {spot.SpotImages && spot.SpotImages.length > 0 && (
                     <>
-                        <div className='all_images' style={{width: 200, height: 200}}>
-                            <img className='preview_image' src={spot.SpotImages[0].url} style={{width: 200, height: 200}}/>
+                        <div className='all_images' style={{width: 600, height: 600}}>
+                            <div className='preview_image' >
+                            <img className='previewImg' src={spot.SpotImages[0].url } />
+                            </div>
                         </div>
                     </>
                 )}
@@ -37,20 +40,22 @@ const SpotDetail = () => {
             <div className="spot_info">
                 <div className="spot_owner">
                     <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
-                </div>
-                <div className="spot_description">
                     <p>{spot.description}</p>
+                        <p>{spot.price}/night</p>
+                        {spot.avgRating} Stars
+                </div>
+                {/* <div className="">
                 </div>
                 <div className="spot_reservation">
-                    <div className='spot_price'>
-                        <p>{spot.price}/night</p>
+                    <div className="">
                     </div>
                     <div className="spot_rating">
-                        {spot.avgRating} Stars
                     </div>
-                </div>
+                </div> */}
+                <button className='reserve_button' onClick={handleReservation}>Reserve</button>
 
             </div>
+            {user && !spot.Reviews?.filter((review) => review.userId == id) }
         </div>
     )
 }
