@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
+// import { FaUserCircle } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
@@ -46,14 +47,14 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={toggleMenu}>
-        <FaUserCircle />
+        <FaUser />
       </button>
       <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
         {user ? (
           < div className='icon_button'>
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
-            <Link to='/spots/:id/edit'>Manage Spots</Link>
+            <Link to='/spots/current'>Manage Spots</Link>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

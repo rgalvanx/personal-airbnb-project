@@ -1,7 +1,7 @@
 .spots_container {
     display: flex;
     flex-wrap: wrap;
-    margin: 50px 125px;
+    margin: 50px 100px;
 }
 
 .spot_owner {

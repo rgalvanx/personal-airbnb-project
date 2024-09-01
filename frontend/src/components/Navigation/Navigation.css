@@ -1,7 +1,8 @@
 .navbar {
     display: flex;
-    justify-content: flex-end;
-    height: 50px;
+    justify-content: center;
+    height: 100px;
+    background-color: grey;
 }
 
 .left_nav {
@@ -13,13 +14,14 @@
 
 .right_nav {
     position: absolute;
-    top: 20px;
+    top: 13px;
     right: 20px;
-    padding: 10px 10px;
+    padding: 8px 10px;
+    background-color: white;
 }
 
 .icon {
-    padding: 10px 10px;
+    padding: 20px 10px;
 }
 
 .create_spot {
@@ -31,4 +33,9 @@
 
 .hidden {
     display: none;
+    padding: 0px;
+}
+.home_icon {
+    width: 25px;
+    height: 25px;
 }

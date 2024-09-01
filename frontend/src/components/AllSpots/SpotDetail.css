@@ -59,23 +59,32 @@
 .rest_images {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     width: 60%;
-    padding: 10px 50px;
+    height: 500px;
+    padding: 0px 50px;
+
 }
 .rest_images img {
-    width: 200px;
-    height: 150px;
-    padding: 10px;
+    width: 350px;
+    height: 200px;
+    padding: 0px 20px;
     border: 10px;
     margin: 10px;
 }
 .previewImg {
     width: 100%;
 }
+.preview_image img {
+    width: 600px;
+}
 
 .spot_details {
     padding: 0px 100px;
     margin: 10px 50px;
+}
+.spot_detail_images {
+    height: 0px;
 }
 
 .spot_detail_images img {

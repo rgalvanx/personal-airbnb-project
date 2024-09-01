@@ -1,0 +1,47 @@
+.manage_title {
+    padding: 20px 40px 10px 40px;
+}
+
+.create_spot_button {
+    padding: 10px;
+    margin: 0px 60px 30px 60px;
+    height: 40px;
+}
+.manage_container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 100px;
+}
+
+.manage_spots_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 40px 60px;
+    width: 400px;
+    border: black 1px solid;
+}
+
+.manage_spots_container img {
+    display: flex;
+    align-self: center;
+    padding-left: 30px;
+    width: 300px;
+    height: 200px;
+}
+.manage_spot_description {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+.bottom_manage {
+    display: flex;
+    justify-content: space-between;
+}
+.manage_confirm_buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+}

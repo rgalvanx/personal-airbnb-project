@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import { FaHouseUser } from 'react-icons/fa';
+// import { FaUser } from 'react-icons/fa';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -9,7 +11,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul className='navbar' style={{ listStyle: 'none'}}>
       <li className='left_nav'style={{ listStyleType: 'none'}}>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/"><FaHouseUser className='home_icon' /></NavLink>
       </li>
       {isLoaded && (
           <li className='right_nav' style={{ listStyleType: 'none'}}>

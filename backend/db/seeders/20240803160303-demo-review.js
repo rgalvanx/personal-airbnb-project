@@ -17,10 +17,22 @@ module.exports = {
       stars: 5
     },
     {
+      spotId: 1,
+      userId: 2,
+      review: 'Spot needed maintenance',
+      stars: 2
+    },
+    {
       spotId: 2,
       userId: 3,
       review: 'The location was perfect, but the service could be better.',
       stars: 3
+    },
+    {
+      spotId: 2,
+      userId: 1,
+      review: 'Great spot, great stay',
+      stars: 5
     },
     {
       spotId: 3,
@@ -33,7 +45,7 @@ module.exports = {
       userId: 2,
       review: 'Terrible place, do not rent.',
       stars: 1
-    }
+    },
    ], { validate: true });
   },
 

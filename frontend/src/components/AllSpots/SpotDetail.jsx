@@ -10,8 +10,7 @@ const SpotDetail = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
-    const sessionUser = useSelector(state => state.session);
-    const actReviews = useSelector(state => state.reviews[spotId]);
+    // const sessionUser = useSelector(state => state.session);
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === Number(spotId))
     );
