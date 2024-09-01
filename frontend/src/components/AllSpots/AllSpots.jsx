@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { loadAllSpotsThunk } from "../../store/spot";
+import { FaStar } from "react-icons/fa";
 import './AllSpots.css'
 
 const AllSpots = () => {
@@ -24,14 +25,14 @@ const AllSpots = () => {
             to={`/spots/${spot?.id}`}
             className="SPOTS"
             >
-                <img src={spot.previewImage} alt={spot.name} />
-                    <div className="idk">
+                <img src={spot.previewImage} alt={spot.name}></img>
+                    <div className="this_spot_details">
                         <div className="allSpots_details">
                             <div>{spot.city}, {spot.state}</div>
-                            <div>{spot.avgRating && spot.avgRating !== "No rating yet." ? spot.avgRating: "New"}
-                            </div>
+                            <div><FaStar />{spot.avgRating && spot.avgRating !== "no current reviews" ? spot.avgRating: "New"}</div>
+                        </div>
+                        <div className="this_spot_price">
                             <span>${spot.price}</span><span>/night</span>
-
                         </div>
                     </div>
             </Link>

@@ -74,11 +74,10 @@ const reviewsReducer = ( state = initialState, action ) => {
     switch( action.type ) {
         case GET_ALL_REVIEWS: {
             const newState = { ...state }
-            const { spotId, reviews } = action.reviews;
-            return {
-                newState,
-                [spotId]: reviews
-            }
+            action.payload.forEach((review) => {
+                newState[review.id] = review;
+            })
+            return newState;
         }
         case CREATE_REVIEW: {
             const newState = { ...state }

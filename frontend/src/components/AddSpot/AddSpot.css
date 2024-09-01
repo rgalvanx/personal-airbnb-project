@@ -79,3 +79,8 @@ input {
     display: flex;
     justify-content: center;
 }
+
+.errors {
+    color: red;
+    margin: 0px;
+}

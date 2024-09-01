@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -20,9 +20,24 @@ function LoginFormModal() {
         const data = await res.json();
         if (data && data.errors) {
           setErrors(data.errors);
+        } else if (data.message) {
+          setErrors({'message':'The provided credentials were invalid'})
         }
       });
   };
+
+  useEffect(() => {
+    const errors = {}
+    if(credential.length < 4) errors.credential = 'Credentials must be at least 4 characters';
+    if(password.length < 6) errors.password = 'Password must be at least 6 characters';
+    setErrors(errors);
+  }, [credential, password]);
+
+  const demoLogin = async (e) => {
+    e.preventDefault()
+    return dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password'}))
+    .then(closeModal)
+  }
 
   return (
     <>
@@ -35,7 +50,7 @@ function LoginFormModal() {
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
-          />
+            />
         </label>
         <label>
           Password
@@ -44,12 +59,19 @@ function LoginFormModal() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
+            />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
+        {errors.message && (
+          <p className='errors'>{errors.message}</p>
         )}
-        <button type="submit">Log In</button>
+        <button
+        type="submit"
+        disabled={credential.length < 4 || password.length < 6}
+        >Log In
+        </button>
+        <button
+        onClick={demoLogin}>Demo User
+        </button>
       </form>
     </>
   );

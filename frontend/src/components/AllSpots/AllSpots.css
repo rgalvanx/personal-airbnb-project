@@ -1,7 +1,11 @@
 .spots_container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 50px;
+    margin: 50px 125px;
+}
+
+.spot_owner {
+    padding-left: 30px;
 }
 
 .Spot_container {
@@ -31,4 +35,26 @@
 
 .root {
     width: 100%;
+}
+
+.Spot_container p {
+    display: grid;
+    grid-template-areas:
+    "a . ."
+    ". . ."
+    ". . ."
+    ;
+}
+
+.Spot_container:hover p {
+    display: block;
+}
+
+.this_spot_details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.this_spot_price {
+    padding: 10px;
 }

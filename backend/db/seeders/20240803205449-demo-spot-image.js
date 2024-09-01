@@ -20,6 +20,21 @@ module.exports = {
         preview: false,
       },
       {
+        spotId: 1,
+        url: 'https://example.com/beach3.jpg',
+        preview: false,
+      },
+      {
+        spotId: 1,
+        url: 'https://example.com/beach4.jpg',
+        preview: false,
+      },
+      {
+        spotId: 1,
+        url: 'https://example.com/beach5.jpg',
+        preview: false,
+      },
+      {
         spotId: 2,
         url: 'https://example.com/mountain.jpg',
         preview: true,
@@ -30,10 +45,70 @@ module.exports = {
         preview: false,
       },
       {
+        spotId: 2,
+        url: 'https://example.com/mountain3.jpg',
+        preview: false,
+      },
+      {
+        spotId: 2,
+        url: 'https://example.com/mountain4.jpg',
+        preview: false,
+      },
+      {
+        spotId: 2,
+        url: 'https://example.com/mountain5.jpg',
+        preview: false,
+      },
+      {
         spotId: 3,
         url: 'https://example.com/lake.jpg',
         preview: true,
-      }
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/lake2.jpg',
+        preview: false,
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/lake3.jpg',
+        preview: false,
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/lake4.jpg',
+        preview: false,
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/lake5.jpg',
+        preview: false,
+      },
+      {
+        spotId: 4,
+        url: 'https://example.com/river.jpg',
+        preview: true,
+      },
+      {
+        spotId: 4,
+        url: 'https://example.com/river2.jpg',
+        preview: false,
+      },
+      {
+        spotId: 4,
+        url: 'https://example.com/river3.jpg',
+        preview: false,
+      },
+      {
+        spotId: 4,
+        url: 'https://example.com/river4.jpg',
+        preview: false,
+      },
+      {
+        spotId: 4,
+        url: 'https://example.com/river5.jpg',
+        preview: false,
+      },
     ], {validate: true})
 
   },

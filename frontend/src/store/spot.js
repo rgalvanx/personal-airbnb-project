@@ -131,7 +131,7 @@ const spotsReducer = ( state = initialState, action ) => {
         case DELETE_SPOT: {
             const newState = { ...state }
             delete newState[action.payload]
-            return newState;
+            return newState
         }
         default:
             return state
