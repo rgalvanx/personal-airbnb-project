@@ -18,6 +18,7 @@ function AddReviewModal({ spotId, reviewSubmission }) {
             reviewSubmission();
         }
         closeModal();
+        
     }
 
     return (
