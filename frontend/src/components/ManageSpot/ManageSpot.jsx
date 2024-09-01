@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteSpotThunk, loadAllSpotsThunk } from "../../store/spot";
-import { useModal } from "../../context/Modal";
+import { Link } from "react-router-dom";
+import { loadAllSpotsThunk } from "../../store/spot";
+// import { useModal } from "../../context/Modal";
 import { FaStar } from "react-icons/fa";
-import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
+// import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
 import { getAllReviewsThunk } from "../../store/review";
 import './ManageSpot.css'
 
 const ManageSpot = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { closeModal } = useModal();
+    // const navigate = useNavigate();
+    // const { closeModal } = useModal();
     const sessionUser = useSelector(state => state.session.user);
     const spots = useSelector(state => state.spots)
     const usersSpots = Object.values(spots).filter(spot => spot.ownerId === sessionUser.id);
@@ -30,10 +30,10 @@ const ManageSpot = () => {
         dispatch(getAllReviewsThunk())
     }, [dispatch])
 
-    const deleteSpot = async ( spotId ) => {
-        await dispatch(deleteSpotThunk( spotId ));
-        closeModal();
-    }
+    // const deleteSpot = async ( spotId ) => {
+    //     await dispatch(deleteSpotThunk( spotId ));
+    //     closeModal();
+    // }
 
     return (
         <div className="main_manage">

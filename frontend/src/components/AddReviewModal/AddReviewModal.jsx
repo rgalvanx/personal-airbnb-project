@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReviewThunk } from "../../store/review";
 import './AddReviewModal.css';
 
-function AddReviewModal({ spotId, reviewSubmition }) {
+function AddReviewModal({ spotId, reviewSubmission }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
-    const [ stars, setStars ] = useState(0);
+    const [ stars ] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newReview = { review, stars };
         await dispatch(createReviewThunk( newReview, spotId ));
-        if(reviewSubmition) {
-            reviewSubmition();
+        if(reviewSubmission) {
+            reviewSubmission();
         }
         closeModal();
     }
@@ -34,3 +34,5 @@ function AddReviewModal({ spotId, reviewSubmition }) {
         </form>
     )
 }
+
+export default AddReviewModal;
