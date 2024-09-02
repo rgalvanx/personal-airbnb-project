@@ -7,6 +7,9 @@ import { FaStar } from "react-icons/fa";
 // import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
 import { getAllReviewsThunk } from "../../store/review";
 import './ManageSpot.css'
+import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import { NavLink } from "react-router-dom";
 
 const ManageSpot = () => {
     const dispatch = useDispatch();
@@ -15,25 +18,20 @@ const ManageSpot = () => {
     const sessionUser = useSelector(state => state.session.user);
     const spots = useSelector(state => state.spots)
     const usersSpots = Object.values(spots).filter(spot => spot.ownerId === sessionUser.id);
-    const reviews = useSelector(state => Object.values(state.reviews))
-    const betterReviews = Object.values(reviews).filter(review => review.ownerId === sessionUser.id);
+    // const reviews = useSelector(state => Object.values(state.reviews))
+    // const betterReviews = Object.values(reviews).filter(review => review.ownerId === sessionUser.id);
     // const reviews = useSelector(state =>
     //     Object.values(state.reviews).filter(review => review.spotId === +spotId)
     // );
-    console.log('yesssssssir', spots)
-    console.log('noooooooo', sessionUser.id)
-    console.log('oookkkkkkk', reviews)
-    console.log('Hellooooooooo', betterReviews)
+    // console.log('yesssssssir', spots)
+    // console.log('noooooooo', sessionUser.id)
+    // console.log('oookkkkkkk', reviews)
+    // console.log('Hellooooooooo', betterReviews)
 
     useEffect(() => {
         dispatch(loadAllSpotsThunk());
         dispatch(getAllReviewsThunk())
     }, [dispatch])
-
-    // const deleteSpot = async ( spotId ) => {
-    //     await dispatch(deleteSpotThunk( spotId ));
-    //     closeModal();
-    // }
 
     return (
         <div className="main_manage">
@@ -55,8 +53,8 @@ const ManageSpot = () => {
                         </div>
                         </Link>
                         <div className="manage_confirm_buttons">
-                            <button><Link to={`/spots/${spot.id}/edit`}>Update</Link></button>
-                            <button>Delete</button>
+                            <button className="updatespot_button"><NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
+                            <button className="deletespot_button"><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal />} itemText={'Delete'}/></button>
                         </div>
                     </div>
                 ))}

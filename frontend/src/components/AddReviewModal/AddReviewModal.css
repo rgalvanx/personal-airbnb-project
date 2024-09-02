@@ -14,3 +14,27 @@
     width: 90%;
     height: 30%;
 }
+
+.top_modal {
+    display: flex;
+    justify-content: center;
+}
+.review_stars {
+    display: flex;
+    position: absolute;
+    bottom: 150px;
+    left: 70px;
+}
+.star {
+    margin-left: 25px;
+}
+.actual_stars {
+    margin: 0px 10px
+}
+.submit_review {
+    position: absolute;
+    bottom: 10px;
+    width: 80%;
+    height: 50px;
+    left: 30px;
+}

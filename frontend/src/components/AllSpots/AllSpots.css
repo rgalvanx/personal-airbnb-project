@@ -22,9 +22,9 @@
 .SPOTS {
     display: flex;
     flex-direction: column;
-    flex-direction: center;
     border: black solid 1px;
     width: 400px;
+    height: 350px;
 }
 
 .allSpots_details {
@@ -57,4 +57,19 @@
 
 .this_spot_price {
     padding: 10px;
+}
+.toolTip {
+    margin: 0px;
+    position: relative;
+    padding: 0px 30px;
+    background-color: white;
+}
+
+button {
+    border-radius: 10px;
+    background-color: darkgrey;
+}
+
+button:hover {
+    cursor: pointer;
 }

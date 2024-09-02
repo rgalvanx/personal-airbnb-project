@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa";
 import { getAllReviewsThunk } from "../../store/review";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
 
 const SpotDetail = () => {
     const { spotId } = useParams();
@@ -16,8 +17,10 @@ const SpotDetail = () => {
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
+    const otherRev = useSelector(state =>
+        Object.values(state.reviews).map((review) => review))
 
-    console.log('_________', sessionUser.user.id)
+    // console.log('_________', sessionUser.user.id)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
@@ -26,10 +29,15 @@ const SpotDetail = () => {
     }, [dispatch, spotId]);
 
     // console.log('yesssssss', spot)
-    console.log('----------', reviews)
+    // console.log('----------', reviews)
+    // console.log(sessionUser.user.id)
+    // console.log('heeeeey', spot.ownerId)
 
+    console.log('----------', sessionUser.user.id)
+    // console.log('----------', reviews.id)
+    console.log('_______', otherRev)
 
-    if(!spot || !spot.Owner || !spot.SpotImages) return null;
+    if(!spot || !spot.SpotImages) return null;
 
     const handleReservation = () => {
         alert('feature coming soon')
@@ -49,7 +57,6 @@ const SpotDetail = () => {
                             </div>
                             <div className="rest_images">
                             {spot.SpotImages.filter(image => image.preview === false).map((image) => (
-
                                 <div className='spot_detail_images' key={image.id}>
                                     <img src={image.url} alt={image.id} />
                                 </div>
@@ -82,16 +89,15 @@ const SpotDetail = () => {
             <div>
                 <div className="review_container">
                     <h3><FaStar /> {!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</h3>
-                    {sessionUser.user && sessionUser.user.id !== spot.OwnerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
-                    {/* {sessionUser.user && sessionUser.user.id !== spot.OwnerId && } */}
+                    {sessionUser.user && sessionUser.user.id !== spot.ownerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
                 <div className="spot_reviews">
-                    {sessionUser.user && sessionUser.user.id !== spot.OwnerId && <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
+                    {sessionUser.user && sessionUser.user.id !== spot.ownerId && <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{reviews.map((review) => {
                         return (
                             <div className='each_review' key={review.id}>
                                 <h3>{review.User.firstName}</h3>
-                                <h5></h5>
                                 <p>{review.review}</p>
+                                {sessionUser.user === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal reviewId={review.id} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
                             </div>
                         )
                     })}

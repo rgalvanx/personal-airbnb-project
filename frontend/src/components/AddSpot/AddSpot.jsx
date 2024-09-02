@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './AddSpot.css';
-import { createSpotThunk } from "../../store/spot";
+import { createSpotThunk, loadAllSpotsThunk } from "../../store/spot";
 
 const AddSpot = () => {
     const navigate = useNavigate();
@@ -14,8 +14,8 @@ const AddSpot = () => {
     const [ city, setCity ] = useState('');
     const [ state, setState ]= useState('');
     const [ country, setCountry ] = useState('');
-    // const [ lat, setLat ] = useState(0);
-    // const [ lng, setLng ] = useState(0);
+    // const [ lat, setLat ] = useState('');
+    // const [ lng, setLng ] = useState('');
     const [ price, setPrice ] = useState('');
     const [ previewImage, setPreviewImage ] = useState('');
     const [ images, setImages ] = useState('');
@@ -38,27 +38,13 @@ const AddSpot = () => {
         setErrors(errors);
     }, [name, description, address, city, state, country, price, previewImage])
 
-    let createdSpot;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true)
-        const spot = {
-            name,
-            description,
-            address,
-            city,
-            state,
-            country,
-            price,
-            previewImage
-        }
-        if(createdSpot.errors) {
-            setErrors(createdSpot.errors);
-        } else {
-            createdSpot = await dispatch(createSpotThunk(spot))
-            navigate(`/spots/${createdSpot.id}`)
-        }
+        const spot = { name, description, address, city, state, country, price, previewImage }
+        const createdSpot = await dispatch(createSpotThunk(spot))
+        navigate(`/spots/${createdSpot.id}`)
     }
 
     useEffect(() => {
@@ -75,6 +61,13 @@ const AddSpot = () => {
             setPreviewImage('')
         }
     }, [])
+
+    useEffect(() => {
+        async function getAllSpots() {
+            await dispatch(loadAllSpotsThunk())
+        }
+        getAllSpots()
+    }, [dispatch])
 
     console.log(errors)
     return (
@@ -117,13 +110,19 @@ const AddSpot = () => {
                     onChange={(e) => setState(e.target.value)}
                     ></input>
                     {submitted && errors.state && <p className="errors">{errors.state}</p>}
-                </div>
-                {/* <div className="last_input">
-                    <label>Latitude</label>
-                    <input></input>,
+                {/* <div className="last_input"> */}
+                    {/* <label>Latitude</label>
+                    <input
+                    value={lat}
+                    onChange={(e) => setLat(+e.target.value)}
+                    ></input>,
                     <label>Longitude</label>
-                    <input></input>
+                    <input
+                    value={lng}
+                    onChange={(e) => setLng(+e.target.value)}
+                    ></input>
                 </div> */}
+                </div>
                 <div className="spot_description">
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your space, any special amenities like fast wifi or parking,
@@ -174,6 +173,7 @@ const AddSpot = () => {
                     placeholder="Image URL"
                     onChange={(e) => setImages(e.target.value)}
                     ></input>
+                    {submitted && errors.images && <p className="errors">{errors.images}</p>}
                     <input
                     value={images}
                     placeholder="Image URL"

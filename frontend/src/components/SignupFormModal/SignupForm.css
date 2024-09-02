@@ -1,0 +1,21 @@
+.signup_modal {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup_req {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup_input {
+    display: flex;
+    align-self: center;
+    width: 80%;
+}
+
+.signup_button {
+    margin: 10px 0px;
+    width: 30%;
+    align-self: center;
+}

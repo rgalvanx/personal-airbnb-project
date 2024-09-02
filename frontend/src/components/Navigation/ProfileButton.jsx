@@ -53,8 +53,8 @@ function ProfileButton({ user }) {
         {user ? (
           < div className='icon_button'>
             <li>Hello, {user.firstName}</li>
-            <li>{user.email}</li>
-            <Link to='/spots/current'>Manage Spots</Link>
+            <li className='last_li'>{user.email}</li>
+            <Link className='manage_spots' to='/spots/current'>Manage Spots</Link>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

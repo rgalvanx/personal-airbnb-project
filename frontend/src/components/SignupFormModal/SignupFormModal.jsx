@@ -42,12 +42,13 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className='signup_modal'>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className='signup_modal' onSubmit={handleSubmit}>
+        <label className='signup_req'>
           Email
           <input
+            className='signup_input'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -55,9 +56,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.email && <p className='errors'>{errors.email}</p>}
-        <label>
+        <label className='signup_req'>
           Username
           <input
+            className='signup_input'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -65,9 +67,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.username && <p className='errors'>{errors.username}</p>}
-        <label>
+        <label className='signup_req'>
           First Name
           <input
+            className='signup_input'
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -75,9 +78,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-        <label>
+        <label className='signup_req'>
           Last Name
           <input
+            className='signup_input'
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -85,9 +89,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-        <label>
+        <label className='signup_req'>
           Password
           <input
+            className='signup_input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -95,9 +100,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.password && <p className='errors'>{errors.password}</p>}
-        <label>
+        <label className='signup_req'>
           Confirm Password
           <input
+            className='signup_input'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -106,6 +112,7 @@ function SignupFormModal() {
         </label>
         {errors.confirmPassword && <p className='errors'>{errors.confirmPassword}</p>}
         <button
+        className='signup_button'
         type="submit"
         disabled={
           (username.length < 4 || username.length === 0) ||
@@ -116,7 +123,7 @@ function SignupFormModal() {
           email.length === 0}>Sign Up
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

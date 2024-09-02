@@ -15,8 +15,8 @@ function ConfirmDeleteSpotModal({ spotId }) {
 
     return (
         <div className="delete_spot_modal">
-            <h1>Confirm Delete</h1>
-            <div>
+            <h1 className="confirm_delete_title">Confirm Delete</h1>
+            <div className="subtitle">
                 <p className="confirmation_note">Are you sure you want to remove this spot from the listings?</p>
             </div>
             <div className="buttons">

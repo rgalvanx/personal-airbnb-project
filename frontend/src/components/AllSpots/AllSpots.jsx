@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { loadAllSpotsThunk } from "../../store/spot";
 import { FaStar } from "react-icons/fa";
@@ -7,6 +7,7 @@ import './AllSpots.css'
 
 const AllSpots = () => {
     const dispatch = useDispatch();
+    const [ toolTip, setToolTip ] = useState(null);
     const spots = useSelector(state => state.spots);
     const spotsArray = Object.values(spots).filter(spot => spot != undefined);
 
@@ -19,12 +20,16 @@ const AllSpots = () => {
     return spotsArray.map((spot) => (
         <div
         className="Spot_container"
+        value={toolTip}
+        onMouseOut={() => setToolTip(null)}
+        onMouseOver={() => setToolTip(spot.id)}
         key={spot?.id}>
             <Link
             key={spot?.id}
             to={`/spots/${spot?.id}`}
             className="SPOTS"
             >
+                {toolTip === spot.id ? <h4 className="toolTip">{spot.name}</h4> : <h3 className="no-show"></h3>}
                 <img src={spot.previewImage} alt={spot.name}></img>
                     <div className="this_spot_details">
                         <div className="allSpots_details">
