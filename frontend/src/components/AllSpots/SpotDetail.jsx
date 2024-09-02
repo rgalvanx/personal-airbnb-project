@@ -19,8 +19,8 @@ const SpotDetail = () => {
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
-    const otherRev = useSelector(state =>
-        Object.values(state.reviews).map((review) => review))
+    // const otherRev = useSelector(state =>
+    //     Object.values(state.reviews).map((review) => review))
 
     // console.log('_________', sessionUser.user.id)
 
