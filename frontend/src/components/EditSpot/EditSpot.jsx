@@ -75,7 +75,7 @@ const UpdateSpot = () => {
     return (
         <div className="add_spot">
             <div className="starting_spot">
-            <h3>Create a New Spot</h3>
+            <h3>Update your spot</h3>
             <h4>Where&apos;s your spot located?</h4>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <form onSubmit={handleSubmit}>

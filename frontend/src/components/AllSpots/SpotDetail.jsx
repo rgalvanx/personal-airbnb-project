@@ -7,19 +7,20 @@ import { FaStar } from "react-icons/fa";
 import { getAllReviewsThunk } from "../../store/review";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
-// import OpenModalBut ton from "../OpenModalButton/OpenModalButton";
+import ConfirmDeleteReviewModal from "../ConfirmDeleteReviewModal/ConfirmDeleteReviewModal";
+
 
 const SpotDetail = () => {
-    const { spotId } = useParams();
+    const { spotId, } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
     const sessionUser = useSelector(state => state.session);
+    const rev = useSelector(state => state.reviews[spotId])
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
-    const otherRev = useSelector(state =>
-        Object.values(state.reviews).map((review) => review))
+    // const otherRev = useSelector(state =>
+    //     Object.values(state.reviews).map((review) => review))
 
     // console.log('_________', sessionUser.user.id)
 
@@ -29,14 +30,9 @@ const SpotDetail = () => {
         //console.log('here)
     }, [dispatch, spotId]);
 
-    // console.log('yesssssss', spot)
-    // console.log('----------', reviews)
-    // console.log(sessionUser.user.id)
-    // console.log('heeeeey', spot.ownerId)
-
+    console.log('aaaaaa', rev.User)
     console.log('----------', sessionUser.user.id)
     // console.log('----------', reviews.id)
-    console.log('_______', otherRev)
 
     if(!spot || !spot.SpotImages) return null;
 
@@ -98,7 +94,7 @@ const SpotDetail = () => {
                             <div className='each_review' key={review.id}>
                                 <h3>{review.User.firstName}</h3>
                                 <p>{review.review}</p>
-                                {sessionUser.user === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal reviewId={review.id} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
+                                {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal reviewId={review.id} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
                             </div>
                         )
                     })}

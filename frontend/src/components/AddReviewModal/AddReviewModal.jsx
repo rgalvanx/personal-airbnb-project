@@ -51,7 +51,7 @@ function AddReviewModal({ spotId, reviewSubmission }) {
                 <span className="star">Stars</span>
             </div>
             <div className="submit_review">
-                <button className="submit_review">Submit Review</button>
+                <button disabled={review.length < 10}className="submit_review">Submit Review</button>
             </div>
         </form>
     )

@@ -191,7 +191,7 @@ const AddSpot = () => {
                     ></input>
                 </div>
                 <div className="submit">
-                <button type='submit'>Create Spot</button>
+                <button onClick={handleSubmit} type='submit'>Create Spot</button>
                 </div>
             </form>
             </div>
