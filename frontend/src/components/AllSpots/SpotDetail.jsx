@@ -11,7 +11,7 @@ import ConfirmDeleteReviewModal from "../ConfirmDeleteReviewModal/ConfirmDeleteR
 
 
 const SpotDetail = () => {
-    const { spotId, } = useParams();
+    const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
     const sessionUser = useSelector(state => state.session);
@@ -19,8 +19,8 @@ const SpotDetail = () => {
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
-    // const otherRev = useSelector(state =>
-    //     Object.values(state.reviews).map((review) => review))
+    const otherRev = useSelector(state =>
+        Object.values(state.reviews).map((review) => review))
 
     // console.log('_________', sessionUser.user.id)
 
@@ -33,8 +33,9 @@ const SpotDetail = () => {
     // console.log('aaaaaa', rev.User)
     // console.log('----------', sessionUser.user.id)
     // console.log('----------', reviews.id)
+    // console.log(reviews[1])
 
-    if(!spot || !spot.SpotImages) return null;
+    if(!spot || !spot.Owner ) return null;
 
     const handleReservation = () => {
         alert('feature coming soon')
