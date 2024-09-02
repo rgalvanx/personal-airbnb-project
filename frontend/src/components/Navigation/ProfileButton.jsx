@@ -47,7 +47,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={toggleMenu}>
-        <FaUser />
+        <FaUser /> Profile
       </button>
       <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
         {user ? (

@@ -1,0 +1,16 @@
+#modal-content {
+    height: 400px;
+    width: 400px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+}
+.bottom_modal {
+    display: flex;
+    position: absolute;
+    left: 10px;
+    bottom: 220px;
+    width: 90%;
+    height: 30%;
+}

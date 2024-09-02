@@ -18,7 +18,7 @@ const ManageSpot = () => {
     const reviews = useSelector(state => Object.values(state.reviews))
     const betterReviews = Object.values(reviews).filter(review => review.ownerId === sessionUser.id);
     // const reviews = useSelector(state =>
-    //     Object.values(state.reviews).filter(review => review.spotId === Number(spotId))
+    //     Object.values(state.reviews).filter(review => review.spotId === +spotId)
     // );
     console.log('yesssssssir', spots)
     console.log('noooooooo', sessionUser.id)

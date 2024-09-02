@@ -13,11 +13,18 @@
 }
 
 .right_nav {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 13px;
     right: 20px;
     padding: 8px 10px;
     background-color: white;
+}
+
+.right_nav item {
+    display: flex;
+    flex-direction: column;
 }
 
 .icon {
@@ -38,4 +45,5 @@
 .home_icon {
     width: 25px;
     height: 25px;
+    margin-right: 10px;
 }

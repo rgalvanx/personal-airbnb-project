@@ -5,16 +5,19 @@ import { loadOneSpotThunk } from "../../store/spot";
 import './SpotDetail.css'
 import { FaStar } from "react-icons/fa";
 import { getAllReviewsThunk } from "../../store/review";
+import AddReviewModal from "../AddReviewModal/AddReviewModal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 const SpotDetail = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
-    // const sessionUser = useSelector(state => state.session);
+    const sessionUser = useSelector(state => state.session);
     const reviews = useSelector(state =>
-        Object.values(state.reviews).filter(review => review.spotId === Number(spotId))
+        Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
 
+    console.log('_________', sessionUser.user.id)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
@@ -22,13 +25,16 @@ const SpotDetail = () => {
         //console.log('here)
     }, [dispatch, spotId]);
 
-    // console.log(spot)
+    // console.log('yesssssss', spot)
+    console.log('----------', reviews)
+
+
     if(!spot || !spot.Owner || !spot.SpotImages) return null;
 
     const handleReservation = () => {
         alert('feature coming soon')
     }
-    console.log('hellooooooo', spot)
+    // console.log('hellooooooo', spot)
 
     return (
         <div className="spot_details">
@@ -69,14 +75,17 @@ const SpotDetail = () => {
                 <div className="reserve_box">
                     <p className='spot_reserve_price'>{spot.price}$ night </p>
                 <button className='reserve_button' onClick={handleReservation}>Reserve</button>
-                    <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{spot.avgRating} · {reviews.numReviews === 1 ? "Review" : "Reviews"}</>}</p>
+                    <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</p>
                 </div>
-                {}
+
             </div>
             <div>
                 <div className="review_container">
-                    <h3>{reviews.avgRating}</h3>
+                    <h3><FaStar /> {!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</h3>
+                    {sessionUser.user && sessionUser.user.id !== spot.OwnerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
+                    {/* {sessionUser.user && sessionUser.user.id !== spot.OwnerId && } */}
                 <div className="spot_reviews">
+                    {sessionUser.user && sessionUser.user.id !== spot.OwnerId && <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{reviews.map((review) => {
                         return (
                             <div className='each_review' key={review.id}>

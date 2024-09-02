@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul className='navbar' style={{ listStyle: 'none'}}>
       <li className='left_nav'style={{ listStyleType: 'none'}}>
-        <NavLink to="/"><FaHouseUser className='home_icon' /></NavLink>
+        <NavLink className='title'to="/"><FaHouseUser className='home_icon' />HomeBnb</NavLink>
       </li>
       {isLoaded && (
           <li className='right_nav' style={{ listStyleType: 'none'}}>

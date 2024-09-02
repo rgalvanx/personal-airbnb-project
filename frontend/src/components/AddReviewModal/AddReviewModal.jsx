@@ -18,7 +18,6 @@ function AddReviewModal({ spotId, reviewSubmission }) {
             reviewSubmission();
         }
         closeModal();
-        
     }
 
     return (
@@ -26,12 +25,13 @@ function AddReviewModal({ spotId, reviewSubmission }) {
         onSubmit={handleSubmit}
         className="form"
         >
-            <h3>How was your stay?</h3>
-            <textarea
+            <h3 className="top_modal">How was your stay?</h3>
+            <input
             placeholder="Leave your review here..."
             value={review}
             onChange={(e) => setReview(e.target.value)}
-            ></textarea>
+            className="bottom_modal"
+            ></input>
         </form>
     )
 }
