@@ -15,7 +15,7 @@ const SpotDetail = () => {
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
     const sessionUser = useSelector(state => state.session);
-    const rev = useSelector(state => state.reviews[spotId])
+    // const rev = useSelector(state => state.reviews[spotId])
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
@@ -30,8 +30,8 @@ const SpotDetail = () => {
         //console.log('here)
     }, [dispatch, spotId]);
 
-    console.log('aaaaaa', rev.User)
-    console.log('----------', sessionUser.user.id)
+    // console.log('aaaaaa', rev.User)
+    // console.log('----------', sessionUser.user.id)
     // console.log('----------', reviews.id)
 
     if(!spot || !spot.SpotImages) return null;

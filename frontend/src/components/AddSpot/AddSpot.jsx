@@ -69,7 +69,7 @@ const AddSpot = () => {
         getAllSpots()
     }, [dispatch])
 
-    console.log(errors)
+    // console.log(errors)
     return (
         <div className="add_spot">
             <div className="starting_spot">

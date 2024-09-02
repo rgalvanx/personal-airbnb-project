@@ -71,7 +71,7 @@ const UpdateSpot = () => {
         }
     }, [ spot ])
 
-    console.log(errors)
+    // console.log(errors)
     return (
         <div className="add_spot">
             <div className="starting_spot">
