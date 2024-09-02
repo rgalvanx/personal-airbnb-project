@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReviewThunk } from "../../store/review";
@@ -10,7 +10,7 @@ function AddReviewModal({ spotId, reviewSubmission }) {
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
     // const [ stars ] = useState(0);
-    const [ setErrors ] = useState({})
+    // const [ setErrors ] = useState({})
     // const spot = useSelector(state => state.spot)
 
     const handleSubmit = async (e) => {
@@ -23,12 +23,12 @@ function AddReviewModal({ spotId, reviewSubmission }) {
         closeModal();
     }
 
-    useEffect(() => {
-        const errors = {}
+    // useEffect(() => {
+    //     const errors = {}
 
-        if(review.length < 5) errors.review = 'Review must be at least 5 characters long';
-        setErrors(errors)
-    }, [review ])
+    //     if(review.length < 5) errors.review = 'Review must be at least 5 characters long';
+    //     setErrors(errors)
+    // }, [review ])
 
     return (
         <form

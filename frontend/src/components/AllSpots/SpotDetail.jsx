@@ -8,6 +8,7 @@ import { getAllReviewsThunk } from "../../store/review";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
+// import OpenModalBut ton from "../OpenModalButton/OpenModalButton";
 
 const SpotDetail = () => {
     const { spotId } = useParams();
