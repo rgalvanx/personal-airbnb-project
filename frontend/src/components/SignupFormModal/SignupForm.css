@@ -12,10 +12,21 @@
     display: flex;
     align-self: center;
     width: 80%;
+    margin: 10px 0px;
+    height: 15px;
 }
 
 .signup_button {
     margin: 10px 0px;
     width: 30%;
+    align-self: center;
+}
+.head {
+    display: flex;
+
+}
+
+.sign_up {
+    display: flex;
     align-self: center;
 }

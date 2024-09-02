@@ -6,7 +6,7 @@ import './SignupForm.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -43,11 +43,11 @@ function SignupFormModal() {
 
   return (
     <div className='signup_modal'>
-      <h1>Sign Up</h1>
+      <h1 className='sign_up'>Sign Up</h1>
       <form className='signup_modal' onSubmit={handleSubmit}>
         <label className='signup_req'>
-          Email
           <input
+            placeholder='Email'
             className='signup_input'
             type="text"
             value={email}
@@ -57,8 +57,8 @@ function SignupFormModal() {
         </label>
         {errors.email && <p className='errors'>{errors.email}</p>}
         <label className='signup_req'>
-          Username
           <input
+            placeholder='Username'
             className='signup_input'
             type="text"
             value={username}
@@ -68,8 +68,8 @@ function SignupFormModal() {
         </label>
         {errors.username && <p className='errors'>{errors.username}</p>}
         <label className='signup_req'>
-          First Name
           <input
+            placeholder='First Name'
             className='signup_input'
             type="text"
             value={firstName}
@@ -79,8 +79,8 @@ function SignupFormModal() {
         </label>
         {errors.firstName && <p className='errors'>{errors.firstName}</p>}
         <label className='signup_req'>
-          Last Name
           <input
+            placeholder='Last Name'
             className='signup_input'
             type="text"
             value={lastName}
@@ -90,8 +90,8 @@ function SignupFormModal() {
         </label>
         {errors.lastName && <p className='errors'>{errors.lastName}</p>}
         <label className='signup_req'>
-          Password
           <input
+            placeholder='Password'
             className='signup_input'
             type="password"
             value={password}
@@ -101,8 +101,8 @@ function SignupFormModal() {
         </label>
         {errors.password && <p className='errors'>{errors.password}</p>}
         <label className='signup_req'>
-          Confirm Password
           <input
+            placeholder='Confirm Password'
             className='signup_input'
             type="password"
             value={confirmPassword}

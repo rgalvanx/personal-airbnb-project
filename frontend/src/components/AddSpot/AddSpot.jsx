@@ -18,7 +18,10 @@ const AddSpot = () => {
     // const [ lng, setLng ] = useState('');
     const [ price, setPrice ] = useState('');
     const [ previewImage, setPreviewImage ] = useState('');
-    const [ images, setImages ] = useState('');
+    const [ image2, setImages2 ] = useState('');
+    const [ image3, setImages3 ] = useState('');
+    const [ image4, setImages4 ] = useState('');
+    const [ image5, setImages5 ] = useState('');
     const [ submitted, setSubmitted ] = useState(false);
     const [ errors, setErrors ] = useState({});
 
@@ -39,12 +42,12 @@ const AddSpot = () => {
     }, [name, description, address, city, state, country, price, previewImage])
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitted(true)
         const spot = { name, description, address, city, state, country, price, previewImage }
-        const createdSpot = await dispatch(createSpotThunk(spot))
-        navigate(`/spots/${createdSpot.id}`)
+        const createdSpot = dispatch(createSpotThunk(spot))
+        navigate(`/spots/${createdSpot.spotId}`)
     }
 
     useEffect(() => {
@@ -59,6 +62,10 @@ const AddSpot = () => {
             // setLng('');
             setPrice('');
             setPreviewImage('')
+            setImages2('');
+            setImages3('');
+            setImages4('');
+            setImages5('');
         }
     }, [])
 
@@ -169,25 +176,25 @@ const AddSpot = () => {
                     </input>
                     {submitted && errors.previewImage && <p className="errors">{errors.previewImage}</p>}
                     <input
-                    value={images}
+                    value={image2}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages2(e.target.value)}
                     ></input>
                     {submitted && errors.images && <p className="errors">{errors.images}</p>}
                     <input
-                    value={images}
+                    value={image3}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages3(e.target.value)}
                     ></input>
                     <input
-                    value={images}
+                    value={image4}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages4(e.target.value)}
                     ></input>
                     <input
-                    value={images}
+                    value={image5}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages5(e.target.value)}
                     ></input>
                 </div>
                 <div className="submit">

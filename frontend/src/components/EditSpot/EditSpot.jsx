@@ -20,7 +20,10 @@ const UpdateSpot = () => {
     // const [ lng, setLng ] = useState('');
     const [ price, setPrice ] = useState('');
     const [ previewImage, setPreviewImage ] = useState('');
-    const [ images, setImages ] = useState('');
+    const [ image2, setImages2 ] = useState('');
+    const [ image3, setImages3 ] = useState('');
+    const [ image4, setImages4 ] = useState('');
+    const [ image5, setImages5 ] = useState('');
     const [ submitted, setSubmitted ] = useState(false);
     const [ errors, setErrors ] = useState({});
 
@@ -46,17 +49,17 @@ const UpdateSpot = () => {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitted(true)
-        const spot = { name, description, address, city, state, country, price, previewImage, images }
-        await dispatch(updateSpotThunk(spotId, spot))
+        const spot = { name, description, address, city, state, country, price, previewImage}
+        dispatch(updateSpotThunk(spotId, spot))
         navigate(`/spots/${spotId}`)
     }
 
     useEffect(() => {
         if(spot) {
-            const { name, description, address, city, state, country, price, previewImage, images} = spot
+            const { name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5} = spot
             setName(name);
             setDescription(description);
             setAddress(address);
@@ -66,8 +69,11 @@ const UpdateSpot = () => {
             // setLat('');
             // setLng('');
             setPrice(price);
-            setPreviewImage(previewImage)
-            setImages(images)
+            setPreviewImage(previewImage);
+            setImages2(image2);
+            setImages3(image3);
+            setImages4(image4);
+            setImages5(image5);
         }
     }, [ spot ])
 
@@ -171,25 +177,25 @@ const UpdateSpot = () => {
                     </input>
                     {submitted && errors.previewImage && <p className="errors">{errors.previewImage}</p>}
                     <input
-                    value={images}
+                    value={image2}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages2(e.target.value)}
                     ></input>
                     {submitted && errors.images && <p className="errors">{errors.images}</p>}
                     <input
-                    value={images}
+                    value={image3}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages3(e.target.value)}
                     ></input>
                     <input
-                    value={images}
+                    value={image4}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages4(e.target.value)}
                     ></input>
                     <input
-                    value={images}
+                    value={image5}
                     placeholder="Image URL"
-                    onChange={(e) => setImages(e.target.value)}
+                    onChange={(e) => setImages5(e.target.value)}
                     ></input>
                 </div>
                 <div className="submit">

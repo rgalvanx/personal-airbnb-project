@@ -19,6 +19,7 @@ const SpotDetail = () => {
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
+    const sorted = reviews.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
     // const otherRev = useSelector(state =>
     //     Object.values(state.reviews).map((review) => review))
 
@@ -90,10 +91,13 @@ const SpotDetail = () => {
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
                 <div className="spot_reviews">
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId && <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
-                    <div className="all_reviews">{reviews.map((review) => {
+                    <div className="all_reviews">{sorted.map((review) => {
+                        const date = new Date(review.updatedAt);
+                        const newDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
                         return (
                             <div className='each_review' key={review.id}>
                                 <h3>{review.User.firstName}</h3>
+                                <p>{newDate}</p>
                                 <p>{review.review}</p>
                                 {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal reviewId={review.id} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
                             </div>
