@@ -38,11 +38,11 @@ export const getAllReviewsThunk = ( spotId ) => async ( dispatch ) => {
     }
 }
 
-export const createReviewThunk = ( spotId, review ) => async ( dispatch ) => {
+export const createReviewThunk = ( review, spotId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(review),
-        headers: {'Content-Type': 'application/json'}
     })
     if(res.ok) {
         const createdReview = await res.json();
@@ -54,14 +54,13 @@ export const createReviewThunk = ( spotId, review ) => async ( dispatch ) => {
     }
 }
 
-export const deleteReviewThunk = ( reviewId ) => async ( dispatch ) => {
+export const deleteReviewThunk = ( reviewId, spotId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
     })
     if(res.ok) {
-        const deletedReview = await res.json()
         dispatch(deleteReview(reviewId))
-        return deletedReview;
+        return
     } else {
         const error = await res.json({'message': 'hello, issue deleting review'});
         return error;

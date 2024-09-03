@@ -2,13 +2,21 @@ import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = 'spots/GET_All_SPOTS';
 const GET_ONE_SPOT = 'spot/GET_ONE_SPOT';
-const CREATE_SPOT = 'spot/CREATE_SPOT';
-const UPDATE_SPOT = 'spot/UPDATE_SPOT';
-const DELETE_SPOT = 'spot/DELETE_SPOT';
+const GET_CURRENT = 'spot/GET_CURRENT_SPOTS'
+const CREATE_SPOT = 'spots/CREATE_SPOT';
+const UPDATE_SPOT = 'spots/UPDATE_SPOT';
+const DELETE_SPOT = 'spots/DELETE_SPOT';
 
 const getSpots = ( payload ) => {
     return {
         type: GET_ALL_SPOTS,
+        payload
+    }
+}
+
+const getCurrentSpots = ( payload ) => {
+    return {
+        type: GET_CURRENT,
         payload
     }
 }
@@ -50,6 +58,15 @@ export const loadAllSpotsThunk = () => async ( dispatch ) => {
     } else {
         const error = await res.json();
         return error;
+    }
+}
+
+export const loadCurrentSpotThunk = () => async ( dispatch ) => {
+    const res = await fetch('/api/spots/current')
+    if(res.ok) {
+        const currentSpots = await res.json();
+        dispatch(getCurrentSpots(currentSpots.Spots));
+        return currentSpots.Spots
     }
 }
 

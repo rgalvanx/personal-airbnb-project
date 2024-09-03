@@ -8,14 +8,15 @@ const {previewImageFormatter, avgRatingFormatter} = require('../../utils/formatt
 
 const validateReview = [
   check('review')
-    .exists({checkFalsy: true})
-    .withMessage('Review text is required'),
+  .exists({checkFalsy: true})
+  .withMessage('Review text is required'),
   check('stars')
-    .exists({checkFalsy: true})
-    .isInt({min: 1, max: 5})
-    .withMessage('Stars must be an integer from 1 to 5'),
+  .exists({checkFalsy: true})
+  .isInt({min: 1, max: 5})
+  .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ]
+
 
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
   const userId = req.user.id
@@ -49,6 +50,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
   if(userId !== review.dataValues.userId) {
     return res.status(403).json({"message":"Forbidden"})
   }
+  console.log(Review)
   const updatedReview = await review.update(req.body)
   return res.json(updatedReview)
 })

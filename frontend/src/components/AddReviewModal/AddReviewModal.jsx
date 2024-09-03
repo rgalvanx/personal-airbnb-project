@@ -5,9 +5,10 @@ import { createReviewThunk } from "../../store/review";
 import './AddReviewModal.css';
 import { FaStar } from "react-icons/fa";
 
-function AddReviewModal({ spotId, setCurrentReview }) {
+function AddReviewModal({ spotId, setNewReview }) {
 
     const dispatch = useDispatch();
+
     const sessionUser = useSelector(state => state.session)
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
@@ -16,32 +17,32 @@ function AddReviewModal({ spotId, setCurrentReview }) {
     const [ errors, setErrors ] = useState({})
     const [ submission, setSubmission ] = useState(false)
 
-    const handleSubmit = async (e) => {
+
+    const handleSubmit = async () => {
         e.preventDefault();
+        setErrors({});
         setSubmission(true);
         if(Object.values(errors).length) {
             return;
         }
-        const currentReview = {
-            review,
-            stars
-        }
-        await dispatch(createReviewThunk(sessionUser, spotId, currentReview))
-        setCurrentReview((prev) => prev + 1)
+        const newReview = { review, stars };
+        await dispatch(createReviewThunk(spotId));
+        setNewReview((prev) => prev + 1)
         closeModal();
     }
+    console.log(review)
 
     useEffect(() => {
         const errors = {}
-
         if(review.length < 5) errors.review = 'Review must be at least 5 characters long';
         if(stars < 1) errors.stars = 'Stars must be greater than 1';
         setErrors(errors)
-    }, [ review, stars ])
+    }, [ stars, review ])
 
     return (
         <form
         className="review_form"
+        onSubmit={handleSubmit}
         >
             <h3 className="top_modal">How was your stay?</h3>
             <textarea
@@ -59,7 +60,7 @@ function AddReviewModal({ spotId, setCurrentReview }) {
                 <span className="stars">Stars</span>
             </div>
             <div className="submit_review">
-                <button disabled={review.length < 10 || stars < 1}className="submit_review" onClick={handleSubmit}>Submit Review</button>
+                <button disabled={review.length < 10 || stars < 1}className="submit_review">Submit Review</button>
                 {submission && errors.review && <p className="errors">{errors.review}</p>}
                 {submission && errors.stars && <p className="errors">{errors.stars}</p>}
             </div>

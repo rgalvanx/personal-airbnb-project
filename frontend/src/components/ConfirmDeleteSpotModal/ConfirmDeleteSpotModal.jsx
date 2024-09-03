@@ -8,10 +8,11 @@ function ConfirmDeleteSpotModal({ spotId }) {
     const { closeModal } = useModal();
 
 
-    const deleteSpot = async () => {
-        await dispatch(deleteSpotThunk(spotId))
-        .then(closeModal)
+    const deleteSpot = () => {
+        dispatch(deleteSpotThunk(spotId))
+        closeModal()
     }
+    console.log(spotId)
 
     return (
         <div className="delete_spot_modal">
