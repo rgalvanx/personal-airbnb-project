@@ -54,7 +54,7 @@ export const createReviewThunk = ( review, spotId ) => async ( dispatch ) => {
     }
 }
 
-export const deleteReviewThunk = ( reviewId, spotId ) => async ( dispatch ) => {
+export const deleteReviewThunk = ( reviewId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
     })

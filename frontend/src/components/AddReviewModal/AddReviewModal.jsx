@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReviewThunk } from "../../store/review";
 import './AddReviewModal.css';
 import { FaStar } from "react-icons/fa";
 
-function AddReviewModal({ spotId, setNewReview }) {
+function AddReviewModal({ spotId }) {
 
     const dispatch = useDispatch();
 
-    const sessionUser = useSelector(state => state.session)
+    // const sessionUser = useSelector(state => state.session)
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
     const [ stars, setStars ] = useState(0);
+    const [ setNewReview ] = useState('')
     const [ rating, setRating] = useState(0);
     const [ errors, setErrors ] = useState({})
     const [ submission, setSubmission ] = useState(false)
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
         setSubmission(true);
         if(Object.values(errors).length) {
             return;
         }
-        const newReview = { review, stars };
         await dispatch(createReviewThunk(spotId));
         setNewReview((prev) => prev + 1)
         closeModal();
