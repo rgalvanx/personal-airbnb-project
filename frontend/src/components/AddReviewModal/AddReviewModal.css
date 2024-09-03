@@ -57,3 +57,9 @@
     border: none;
     cursor: pointer;
 }
+.reviewerrors {
+    position: absolute;
+    color: red;
+    bottom: 170px;
+    left: 30px;
+}

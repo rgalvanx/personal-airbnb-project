@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { loadOneSpotThunk } from "../../store/spot";
@@ -16,6 +16,7 @@ const SpotDetail = () => {
     const spot = useSelector(state => state.spots[spotId]);
     const sessionUser = useSelector(state => state.session);
     // const rev = useSelector(state => state.reviews[spotId])
+    // const oldReviews = useSelector(state => state.reviews)
     const reviews = useSelector(state =>
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
@@ -23,6 +24,7 @@ const SpotDetail = () => {
     const test = reviews.filter(review => review.userId === sessionUser.user.id).length > 0;
     // const otherRev = useSelector(state =>
     //     Object.values(state.reviews).map((review) => review))
+    const [ newReview, setNewReview ] = useState(0);
 
     console.log('_________', test)
 
@@ -30,7 +32,7 @@ const SpotDetail = () => {
         dispatch(loadOneSpotThunk(spotId))
         dispatch(getAllReviewsThunk(spotId))
         //console.log('here)
-    }, [dispatch, spotId]);
+    }, [dispatch, spotId, newReview]);
 
     // console.log('aaaaaa', rev.User)
     // console.log('----------', sessionUser.user.id)
@@ -93,7 +95,7 @@ const SpotDetail = () => {
                 <div className="spot_reviews">
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId &&
                     !reviews.filter(review => review.userId === sessionUser.user.id).length > 0 &&
-                    <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
+                    <button><OpenModalMenuItem modalComponent={<AddReviewModal avgRating={spot.avgRating} ownerId={spot.ownerId} setReview={setNewReview} spotId={spotId}/>} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{sorted.map((review) => {
                         const date = new Date(review.updatedAt);
                         const newDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
@@ -102,7 +104,7 @@ const SpotDetail = () => {
                                 <h3>{review.User.firstName}</h3>
                                 <p>{newDate}</p>
                                 <p>{review.review}</p>
-                                {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal reviewId={review.id} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
+                                {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal reviewId={review.id} spotId={spotId} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
                             </div>
                         )
                     })}

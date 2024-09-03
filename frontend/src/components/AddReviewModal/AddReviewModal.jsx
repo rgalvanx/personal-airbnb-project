@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReviewThunk } from "../../store/review";
 import './AddReviewModal.css';
 import { FaStar } from "react-icons/fa";
 
-function AddReviewModal({ spotId }) {
-
+function AddReviewModal({ spotId, setNewReview }) {
     const dispatch = useDispatch();
-
-    // const sessionUser = useSelector(state => state.session)
+    const sessionUser = useSelector(state => state.session)
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
     const [ stars, setStars ] = useState(0);
-    const [ setNewReview ] = useState('')
     const [ rating, setRating] = useState(0);
     const [ errors, setErrors ] = useState({})
     const [ submission, setSubmission ] = useState(false)
@@ -21,12 +18,16 @@ function AddReviewModal({ spotId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
         setSubmission(true);
+        setErrors({});
         if(Object.values(errors).length) {
             return;
         }
-        await dispatch(createReviewThunk(spotId));
+        const newReview = {
+            review,
+            stars
+        }
+        await dispatch(createReviewThunk( sessionUser, spotId, newReview ));
         setNewReview((prev) => prev + 1)
         closeModal();
     }
@@ -61,8 +62,8 @@ function AddReviewModal({ spotId }) {
             </div>
             <div className="submit_review">
                 <button disabled={review.length < 10 || stars < 1}className="submit_review">Submit Review</button>
-                {submission && errors.review && <p className="errors">{errors.review}</p>}
-                {submission && errors.stars && <p className="errors">{errors.stars}</p>}
+                {submission && errors.review && <p className="reviewerrors">{errors.review}</p>}
+                {submission && errors.stars && <p className="reviewerrors">{errors.stars}</p>}
             </div>
         </form>
     )
