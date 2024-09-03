@@ -23,9 +23,14 @@
     background-color: white;
 }
 
+
 .right_nav item {
     display: flex;
     flex-direction: column;
+}
+.logout_button {
+    display: flex;
+    justify-content: center;
 }
 
 .icon {

@@ -20,10 +20,11 @@ const SpotDetail = () => {
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
     const sorted = reviews.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    const test = reviews.filter(review => review.userId === sessionUser.user.id).length > 0;
     // const otherRev = useSelector(state =>
     //     Object.values(state.reviews).map((review) => review))
 
-    // console.log('_________', sessionUser.user.id)
+    console.log('_________', test)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
@@ -90,7 +91,9 @@ const SpotDetail = () => {
                     <h3><FaStar /> {!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</h3>
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
                 <div className="spot_reviews">
-                    {sessionUser.user && sessionUser.user.id !== spot.ownerId && <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
+                    {sessionUser.user && sessionUser.user.id !== spot.ownerId &&
+                    !reviews.filter(review => review.userId === sessionUser.user.id).length > 0 &&
+                    <button><OpenModalMenuItem modalComponent={<AddReviewModal />} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{sorted.map((review) => {
                         const date = new Date(review.updatedAt);
                         const newDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);

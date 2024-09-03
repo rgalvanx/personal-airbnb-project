@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './AddSpot.css';
 import { createSpotThunk, loadAllSpotsThunk } from "../../store/spot";
+// import * as spotActions from '../../store/spot'
 
 const AddSpot = () => {
     const navigate = useNavigate();
@@ -42,12 +43,13 @@ const AddSpot = () => {
     }, [name, description, address, city, state, country, price, previewImage])
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true)
+        if(Object.values(errors).length) return;
         const spot = { name, description, address, city, state, country, price, previewImage }
-        const createdSpot = dispatch(createSpotThunk(spot))
-        navigate(`/spots/${createdSpot.spotId}`)
+        const createdSpot = await dispatch(createSpotThunk(spot))
+        navigate(`/spots/${createdSpot.id}`)
     }
 
     useEffect(() => {
@@ -83,7 +85,7 @@ const AddSpot = () => {
             <h3>Create a New Spot</h3>
             <h4>Where&apos;s your spot located?</h4>
             <p>Guests will only get your exact address once they booked a reservation.</p>
-            <form onSubmit={handleSubmit}>
+            <form >
                 <div className='spot_input'>
                     <label>Country</label>
                     <input
@@ -91,7 +93,7 @@ const AddSpot = () => {
                     placeholder="Country"
                     onChange={(e) => setCountry(e.target.value)}
                     ></input>
-                    {submitted && errors.country && <p className="errors"> {errors.country}</p>}
+                    {submitted && errors.country && <p className="newerrors"> {errors.country}</p>}
                 </div>
                 <div className="spot_input">
                     <label>Street Address</label>
@@ -100,7 +102,7 @@ const AddSpot = () => {
                     placeholder="Street Address"
                     onChange={(e) => setAddress(e.target.value)}
                     ></input>
-                    {submitted && errors.address && <p className="errors">{errors.address}</p>}
+                    {submitted && errors.address && <p className="newerrors">{errors.address}</p>}
                 </div>
                 <div className='last_input'>
                     <label>City</label>
@@ -109,14 +111,14 @@ const AddSpot = () => {
                     placeholder="City"
                     onChange={(e)=> setCity(e.target.value)}
                     ></input>
-                    {submitted && errors.city && <p className="errors">{errors.city}</p>}
+                    {submitted && errors.city && <p className="newerrors">{errors.city}</p>}
                     <label>State</label>
                     <input
                     value={state}
                     placeholder="State"
                     onChange={(e) => setState(e.target.value)}
                     ></input>
-                    {submitted && errors.state && <p className="errors">{errors.state}</p>}
+                    {submitted && errors.state && <p className="newerrors">{errors.state}</p>}
                 {/* <div className="last_input"> */}
                     {/* <label>Latitude</label>
                     <input
@@ -134,13 +136,13 @@ const AddSpot = () => {
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your space, any special amenities like fast wifi or parking,
                     and what you love about the neighborhood.</p>
-                <input
+                <textarea
                 value={description}
                 className='description_box'
                 placeholder="Please write at least 30 characters"
                 onChange={(e) => setDescription(e.target.value)}
-                ></input>
-                {submitted && errors.description && <p className="errors">{errors.description}</p>}
+                ></textarea>
+                {submitted && errors.description && <p className="newerrors">{errors.description}</p>}
                 </div>
                 <div className="spot_title">
                     <h3>Create a title for your spot</h3>
@@ -150,7 +152,7 @@ const AddSpot = () => {
                     placeholder="Name of your spot"
                     onChange={(e) => setName(e.target.value)}
                     ></input>
-                    {submitted && errors.name && <p className="errors">{errors.name}</p>}
+                    {submitted && errors.name && <p className="newerrors">{errors.name}</p>}
                 </div>
                 <div className="spot_price">
                     <h3>Set a base price for your spot</h3>
@@ -162,7 +164,7 @@ const AddSpot = () => {
                         placeholder="Price per night(USD)"
                         onChange={(e) => setPrice(e.target.value)}
                         ></input>
-                        {submitted && errors.price && <p className="errors">{errors.price}</p>}
+                        {submitted && errors.price && <p className="newerrors">{errors.price}</p>}
                     </p>
                 </div>
                 <div className="spot_photos">
@@ -174,13 +176,13 @@ const AddSpot = () => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     >
                     </input>
-                    {submitted && errors.previewImage && <p className="errors">{errors.previewImage}</p>}
+                    {submitted && errors.previewImage && <p className="newerrors">{errors.previewImage}</p>}
                     <input
                     value={image2}
                     placeholder="Image URL"
                     onChange={(e) => setImages2(e.target.value)}
                     ></input>
-                    {submitted && errors.images && <p className="errors">{errors.images}</p>}
+                    {submitted && errors.images && <p className="newerrors">{errors.images}</p>}
                     <input
                     value={image3}
                     placeholder="Image URL"

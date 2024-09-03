@@ -34,10 +34,10 @@ const AllSpots = () => {
                     <div className="this_spot_details">
                         <div className="allSpots_details">
                             <div>{spot.city}, {spot.state}</div>
-                            <div><FaStar />{spot.avgRating && spot.avgRating !== "no current reviews" ? spot.avgRating: "New"}</div>
+                            <div>${spot.price} night</div>
                         </div>
                         <div className="this_spot_price">
-                            <span>${spot.price}</span><span>/night</span>
+                            <span><FaStar />{spot.avgRating && spot.avgRating !== "no current reviews" ? spot.avgRating: "New"}</span>
                         </div>
                     </div>
             </Link>

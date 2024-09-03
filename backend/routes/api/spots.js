@@ -22,14 +22,14 @@ const validateSpot = [
   check('country')
     .exists({ checkFalsy: true })
     .withMessage('Country is required'),
-  check('lat')
-    .exists({ checkFalsy: true })
-    .isFloat({min: -90.0, max: 90.0})
-    .withMessage('Latitude must be within -90 and 90'),
-  check('lng')
-    .exists({ checkFalsy: true })
-    .isFloat({min: -180.0, max: 180.0})
-    .withMessage('Longitude must be within -180 and 180'),
+  // check('lat')
+  //   .exists({ checkFalsy: true })
+  //   .isFloat({min: -90.0, max: 90.0})
+  //   .withMessage('Latitude must be within -90 and 90'),
+  // check('lng')
+  //   .exists({ checkFalsy: true })
+  //   .isFloat({min: -180.0, max: 180.0})
+  //   .withMessage('Longitude must be within -180 and 180'),
   check('name')
     .exists({ checkFalsy: true })
     .isLength({min: 1, max: 50})
@@ -64,22 +64,22 @@ const validateQuery = [
     .optional()
     .isInt({min: 1, max: 20})
     .withMessage('Size must be between 1 and 20'),
-  query('maxLat')
-    .optional()
-    .isFloat({max: 90.0})
-    .withMessage('Maximum latitude is invalid'),
-  query('minLat')
-    .optional()
-    .isFloat({min: -90.0})
-    .withMessage('Minimum latitude is invalid'),
-  query('minLng')
-    .optional()
-    .isFloat({min: -180.0})
-    .withMessage('Minimum longitude is invalid'),
-  query('maxLng')
-    .optional()
-    .isFloat({max: 180.0})
-    .withMessage('Maximum longitude is invalid'),
+  // query('maxLat')
+  //   .optional()
+  //   .isFloat({max: 90.0})
+  //   .withMessage('Maximum latitude is invalid'),
+  // query('minLat')
+  //   .optional()
+  //   .isFloat({min: -90.0})
+  //   .withMessage('Minimum latitude is invalid'),
+  // query('minLng')
+  //   .optional()
+  //   .isFloat({min: -180.0})
+  //   .withMessage('Minimum longitude is invalid'),
+  // query('maxLng')
+  //   .optional()
+  //   .isFloat({max: 180.0})
+  //   .withMessage('Maximum longitude is invalid'),
   query('minPrice')
     .optional()
     .isFloat({min: 0.0})

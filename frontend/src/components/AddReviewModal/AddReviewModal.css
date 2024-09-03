@@ -19,12 +19,12 @@
     display: flex;
     justify-content: center;
 }
-.review_stars {
+/* .review_stars {
     display: flex;
     position: absolute;
     bottom: 150px;
     left: 70px;
-}
+} */
 .star {
     margin-left: 25px;
 }
@@ -37,4 +37,23 @@
     width: 80%;
     height: 50px;
     left: 30px;
+}
+
+.empty {
+    color: grey;
+    margin: 0px 10px;
+}
+.filled {
+    color: black;
+    margin: 0px 10px;
+}
+.review_stars {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 70px;
+    bottom: 100px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
