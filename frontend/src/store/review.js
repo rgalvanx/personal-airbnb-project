@@ -26,6 +26,16 @@ const deleteReview = ( payload ) => {
     }
 }
 
+const normalizer = (array) => {
+    const payload = {};
+
+    array.forEach((el) => {
+      payload[el.id] = el;
+    });
+
+    return payload;
+  };
+
 export const getAllReviewsThunk = ( spotId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`)
     if(res.ok) {
@@ -33,23 +43,24 @@ export const getAllReviewsThunk = ( spotId ) => async ( dispatch ) => {
         dispatch(getAllReviews(reviews.Reviews))
         return reviews
     } else {
-        const error = await res.json({'message': 'hello, issue getting reviews'});
+        const error = await res.json();
         return error;
     }
 }
 
-export const createReviewThunk = ( review, spotId ) => async ( dispatch ) => {
+export const createReviewThunk = ( user, review, spotId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(review),
+        headers: {'Content-Type': 'application/json'},
     })
     if(res.ok) {
         const createdReview = await res.json();
+        createdReview.User = user
         dispatch(createReview(createdReview));
         return createdReview;
     } else {
-        const error = await res.json({'message': 'hello, issue creating review'});
+        const error = await res.json();
         return error;
     }
 }
@@ -59,10 +70,12 @@ export const deleteReviewThunk = ( reviewId ) => async ( dispatch ) => {
         method: 'DELETE',
     })
     if(res.ok) {
+        const deletedReview = await res.json();
         dispatch(deleteReview(reviewId))
-        return
+        return deletedReview
     } else {
-        const error = await res.json({'message': 'hello, issue deleting review'});
+        const error = await res.json();
+        console.log('here')
         return error;
     }
 }

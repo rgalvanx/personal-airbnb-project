@@ -7,12 +7,10 @@ function ConfirmDeleteSpotModal({ spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-
     const deleteSpot = () => {
         dispatch(deleteSpotThunk(spotId))
         closeModal()
     }
-    console.log(spotId)
 
     return (
         <div className="delete_spot_modal">

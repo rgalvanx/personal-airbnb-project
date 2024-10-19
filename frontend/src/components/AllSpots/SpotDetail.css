@@ -16,7 +16,7 @@
     align-self: flex-end;
     margin-right: 0px;
     margin-top: 30px;
-    width: 100px;
+    width: 100%;
 }
 .reserve_button button {
     padding-top: 10px;
@@ -28,11 +28,13 @@
     border: black 1px solid;
     padding: 10px;
     border-radius: 10px;
+
 }
 .spot_reserve_price {
     margin-left: 5px;
     margin-top: 0px;
 }
+
 .rating_reservation {
     margin-top: 0px;
     margin-right: 5px;
@@ -42,45 +44,53 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    margin-top: 50px;
     border-bottom: black 1px solid;
+
 }
 
 .all_images {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     width: 100%;
-    height: 500px;
+    height: 40%;
+    margin-bottom: 20px;
 }
 .preview_image {
-    padding: 30px;
-    height: 300px;
-    width: 45%;
-}
-.rest_images {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 60%;
-    height: 500px;
+    justify-content: center;
+    width: 50%;
+    padding-right: 15px;
+    height: 100%;
+}
+
+.preview_image img {
+    width: 100%;
+    height: 100%;
+}
+
+.rest_images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
     margin: 0px 0px;
+    width: 70%;
+    height: 100%;
 }
 .rest_images img {
-    width: 350px;
-    height: 200px;
-    padding: 0px 20px;
-    border: 10px;
-    margin: 10px;
+    width: 100%;
+    height: 100%;
 }
 .previewImg {
-    width: 100%;
-}
-.preview_image img {
-    width: 600px;
+    width: auto;
 }
 
 .spot_details {
-    padding: 0px 100px;
+    padding: 0px 70px;
     margin: 10px 50px;
+    height: 100%;
+    width: 90%;
 }
 .spot_detail_images {
     height: 0px;
@@ -89,6 +99,7 @@
 .spot_detail_images img {
     display: flex;
     flex-wrap: wrap;
+    height: 200px;
 }
 
 .all_reviews {

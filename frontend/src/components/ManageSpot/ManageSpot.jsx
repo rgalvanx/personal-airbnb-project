@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { loadAllSpotsThunk } from "../../store/spot";
+import { deleteSpotThunk, loadAllSpotsThunk } from "../../store/spot";
 // import { useModal } from "../../context/Modal";
 import { FaStar } from "react-icons/fa";
 // import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
@@ -12,6 +12,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { NavLink } from "react-router-dom";
 
 const ManageSpot = () => {
+
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     // const { closeModal } = useModal();
@@ -21,26 +22,23 @@ const ManageSpot = () => {
     // const reviews = useSelector(state => Object.values(state.reviews))
     // const betterReviews = Object.values(reviews).filter(review => review.ownerId === sessionUser.id);
     // const reviews = useSelector(state =>
-    //     Object.values(state.reviews).filter(review => review.spotId === +spotId)
-    // );
-    // console.log('yesssssssir', spots)
-    // console.log('noooooooo', sessionUser.id)
-    // console.log('oookkkkkkk', reviews)
-    // console.log('Hellooooooooo', betterReviews)
+        //     Object.values(state.reviews).filter(review => review.spotId === +spotId)
+        // );
+        useEffect(() => {
+            dispatch(loadAllSpotsThunk());
+            dispatch(getAllReviewsThunk());
+            dispatch(deleteSpotThunk());
 
-    useEffect(() => {
-        dispatch(loadAllSpotsThunk());
-        dispatch(getAllReviewsThunk())
-    }, [dispatch])
+        }, [dispatch])
 
-    return (
-        <div className="main_manage">
+        return (
+            <div className="main_manage">
             <h1 className="manage_title">Manage Spots</h1>
             <button className="create_spot_button"><Link to={'/spots/new'}>Create a New Spot!</Link></button>
             <div className="manage_container">
                 {usersSpots.map((spot) => (
                     <div className="manage_spots_container" key={spot.id}>
-                        <Link style={{width: 'fit-content'}} key={spot.id} to={`/spots/${spot.id}`}>
+                        <Link className='link_spot'key={spot.id} to={`/spots/${spot.id}`}>
                         <img src={spot.previewImage} />
                         <div className="bottom_manage">
                             <div className="manage_spot_description">
@@ -54,7 +52,7 @@ const ManageSpot = () => {
                         </Link>
                         <div className="manage_confirm_buttons">
                             <button className="updatespot_button"><NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
-                            <button className="deletespot_button"><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal />} itemText={'Delete'}/></button>
+                            <button className="deletespot_button"><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal spotId={spot.id}/>} itemText={'Delete'}/></button>
                         </div>
                     </div>
                 ))}

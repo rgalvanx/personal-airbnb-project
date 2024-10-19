@@ -33,6 +33,12 @@ const UpdateSpot = () => {
 
     useEffect(() => {
         const errors = {};
+        const validImg = [ '.png', '.jpg', '.jpeg', '.svg', '.heic' ];
+        const imageExt = (image) => {
+            const ext = '.' + image.split('.').pop().toLowerCase();
+            return validImg.includes(ext);
+        }
+
         if(name.length <= 0) errors.name = 'Name is required';
         if(description.length <= 0) errors.description = 'Description must be at least 30 characters';
         if(address.length <= 0) errors.address = 'Address is required';
@@ -43,15 +49,21 @@ const UpdateSpot = () => {
         // if(lng < -180 || lng > 180) errors.lng = 'Longitude must be between -180 and 180';
         if(price <= 0) errors.price = 'Price must be a positive number';
         if(!previewImage) errors.previewImage = 'Preview image must be provided';
+        if(!imageExt(previewImage)) errors.previewImage = 'Please provide a valid image';
+        if(image2 && !imageExt(image2)) errors.image2 = 'Please provide a valid image';
+        if(image3 && !imageExt(image3)) errors.image3 = 'Please provide a valid image';
+        if(image4 && !imageExt(image4)) errors.image4 = 'Please provide a valid image';
+        if(image5 && !imageExt(image5)) errors.image5 = 'Please provide a valid image';
 
         setErrors(errors);
-    }, [name, description, address, city, state, country, price, previewImage ])
+    }, [name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5 ])
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSubmitted(true)
+        setSubmitted(true);
+        if(Object.values(errors).length) return;
         const spot = { name, description, address, city, state, country, price, previewImage}
         dispatch(updateSpotThunk(spotId, spot))
         navigate(`/spots/${spotId}`)

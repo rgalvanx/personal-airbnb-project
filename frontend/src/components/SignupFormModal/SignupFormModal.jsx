@@ -44,8 +44,13 @@ function SignupFormModal() {
   return (
     <div className='signup_modal'>
       <h1 className='sign_up'>Sign Up</h1>
-      <form className='signup_modal' onSubmit={handleSubmit}>
+      <form className='signup_form' onSubmit={handleSubmit}>
         <label className='signup_req'>
+          {errors.email && <p className='errors_signup'>{errors.email}</p>}
+          {errors.username && <p className='errors_signup'>{errors.username}</p>}
+          {errors.firstName && <p className='errors'>{errors.firstName}</p>}
+          {errors.password && <p className='errors'>{errors.password}</p>}
+          {errors.confirmPassword && <p className='errors'>{errors.confirmPassword}</p>}
           <input
             placeholder='Email'
             className='signup_input'
@@ -53,9 +58,8 @@ function SignupFormModal() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
+            />
         </label>
-        {errors.email && <p className='errors'>{errors.email}</p>}
         <label className='signup_req'>
           <input
             placeholder='Username'
@@ -64,9 +68,8 @@ function SignupFormModal() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-          />
+            />
         </label>
-        {errors.username && <p className='errors'>{errors.username}</p>}
         <label className='signup_req'>
           <input
             placeholder='First Name'
@@ -77,7 +80,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p className='errors'>{errors.firstName}</p>}
         <label className='signup_req'>
           <input
             placeholder='Last Name'
@@ -99,7 +101,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p className='errors'>{errors.password}</p>}
         <label className='signup_req'>
           <input
             placeholder='Confirm Password'
@@ -110,7 +111,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p className='errors'>{errors.confirmPassword}</p>}
         <button
         className='signup_button'
         type="submit"

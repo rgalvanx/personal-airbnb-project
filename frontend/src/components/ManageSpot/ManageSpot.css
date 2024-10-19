@@ -27,10 +27,12 @@
 .manage_spots_container img {
     display: flex;
     align-self: center;
-    padding-left: 30px;
+    justify-self: space-around;
     width: 300px;
     height: 200px;
 }
+
+
 .manage_spot_description {
     display: flex;
     flex-direction: column;
@@ -39,6 +41,7 @@
 .bottom_manage {
     display: flex;
     justify-content: space-between;
+    padding: 5px 20px;
 }
 .manage_confirm_buttons {
     display: flex;
@@ -49,7 +52,8 @@
 .deletespot_button {
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 30px;
+    align-items: center;
 }
 .deletespot_button:hover {
     cursor: pointer;
@@ -60,6 +64,12 @@
     justify-content: space-around;
     padding-top: 50px;
     text-decoration: none;
+}
+.link_spot {
+    display: flex;
+    width: 100%;
+    justify-items: center;
+    flex-direction: column;
 }
 
 .updatespot_button {

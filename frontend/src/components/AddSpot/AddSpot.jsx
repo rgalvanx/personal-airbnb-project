@@ -17,7 +17,7 @@ const AddSpot = () => {
     const [ country, setCountry ] = useState('');
     // const [ lat, setLat ] = useState('');
     // const [ lng, setLng ] = useState('');
-    const [ price, setPrice ] = useState('');
+    const [ price, setPrice ] = useState(0);
     const [ previewImage, setPreviewImage ] = useState('');
     const [ image2, setImages2 ] = useState('');
     const [ image3, setImages3 ] = useState('');
@@ -28,6 +28,12 @@ const AddSpot = () => {
 
     useEffect(() => {
         const errors = {};
+        const validImg = [ '.png', '.jpg', '.jpeg', '.svg', '.heic' ];
+        const imageExt = (image) => {
+            const ext = '.' + image.split('.').pop().toLowerCase();
+            return validImg.includes(ext);
+        }
+
         if(name.length <= 0) errors.name = 'Name is required';
         if(description.length < 30) errors.description = 'Description must be at least 30 characters';
         if(address.length < 5) errors.address = 'Address is required';
@@ -36,11 +42,16 @@ const AddSpot = () => {
         if(country.length <= 0) errors.country = 'Country is required';
         // if(lat < -90 || lat > 90) errors.lat = 'Latitude must be between -90 and 90';
         // if(lng < -180 || lng > 180) errors.lng = 'Longitude must be between -180 and 180';
-        if(price <= 0) errors.price = 'Price must be a positive number';
+        if(price <= 0 ) errors.price = 'Price must be a positive number';
         if(!previewImage) errors.previewImage = 'Preview image must be provided';
+        if(!imageExt(previewImage)) errors.previewImage = 'Please provide a valid image';
+        if(image2 && !imageExt(image2)) errors.image2 = 'Please provide a valid image';
+        if(image3 && !imageExt(image3)) errors.image3 = 'Please provide a valid image';
+        if(image4 && !imageExt(image4)) errors.image4 = 'Please provide a valid image';
+        if(image5 && !imageExt(image5)) errors.image5 = 'Please provide a valid image';
 
         setErrors(errors);
-    }, [name, description, address, city, state, country, price, previewImage])
+    }, [name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5])
 
 
     const handleSubmit = async (e) => {
@@ -62,7 +73,7 @@ const AddSpot = () => {
             setCountry('');
             // setLat('');
             // setLng('');
-            setPrice('');
+            setPrice(0);
             setPreviewImage('')
             setImages2('');
             setImages3('');
@@ -78,7 +89,6 @@ const AddSpot = () => {
         getAllSpots()
     }, [dispatch])
 
-    // console.log(errors)
     return (
         <div className="add_spot">
             <div className="starting_spot">
@@ -159,6 +169,7 @@ const AddSpot = () => {
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                     <p className="bottom_price">$
                         <input
+                        type="number"
                         value={price}
                         className="spot_price_input"
                         placeholder="Price per night(USD)"
@@ -182,22 +193,25 @@ const AddSpot = () => {
                     placeholder="Image URL"
                     onChange={(e) => setImages2(e.target.value)}
                     ></input>
-                    {submitted && errors.images && <p className="newerrors">{errors.images}</p>}
+                    {submitted && errors.image2 && <p className="newerrors">{errors.image2}</p>}
                     <input
                     value={image3}
                     placeholder="Image URL"
                     onChange={(e) => setImages3(e.target.value)}
                     ></input>
+                    {submitted && errors.image3 && <p className="newerrors">{errors.image3}</p>}
                     <input
                     value={image4}
                     placeholder="Image URL"
                     onChange={(e) => setImages4(e.target.value)}
                     ></input>
+                    {submitted && errors.image4 && <p className="newerrors">{errors.image4}</p>}
                     <input
                     value={image5}
                     placeholder="Image URL"
                     onChange={(e) => setImages5(e.target.value)}
                     ></input>
+                    {submitted && errors.image5 && <p className="newerrors">{errors.image5}</p>}
                 </div>
                 <div className="submit">
                 <button onClick={handleSubmit} type='submit'>Create Spot</button>

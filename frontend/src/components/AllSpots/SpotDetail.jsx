@@ -21,30 +21,23 @@ const SpotDetail = () => {
         Object.values(state.reviews).filter(review => review.spotId === +spotId)
     );
     const sorted = reviews.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-    const test = reviews.filter(review => review.userId === sessionUser.user.id).length > 0;
-    // const otherRev = useSelector(state =>
-    //     Object.values(state.reviews).map((review) => review))
+
     const [ newReview, setNewReview ] = useState(0);
 
-    console.log('_________', test)
+    console.log(spotId)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
         dispatch(getAllReviewsThunk(spotId))
-        //console.log('here)
     }, [dispatch, spotId, newReview]);
 
-    // console.log('aaaaaa', rev.User)
-    // console.log('----------', sessionUser.user.id)
-    // console.log('----------', reviews.id)
-    // console.log(reviews[1])
 
     if(!spot || !spot.Owner ) return null;
 
     const handleReservation = () => {
         alert('feature coming soon')
     }
-    // console.log('hellooooooo', spot)
+
 
     return (
         <div className="spot_details">
@@ -95,7 +88,7 @@ const SpotDetail = () => {
                 <div className="spot_reviews">
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId &&
                     !reviews.filter(review => review.userId === sessionUser.user.id).length > 0 &&
-                    <button><OpenModalMenuItem modalComponent={<AddReviewModal avgRating={spot.avgRating} ownerId={spot.ownerId} setReview={setNewReview} spotId={spotId}/>} itemText={'Post Your Review'} /></button>}
+                    <button><OpenModalMenuItem modalComponent={<AddReviewModal  spotId={spotId} setNewReview={setNewReview}/>} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{sorted.map((review) => {
                         const date = new Date(review.updatedAt);
                         const newDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
