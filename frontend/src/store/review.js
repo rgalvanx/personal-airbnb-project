@@ -26,16 +26,6 @@ const deleteReview = ( payload ) => {
     }
 }
 
-const normalizer = (array) => {
-    const payload = {};
-
-    array.forEach((el) => {
-      payload[el.id] = el;
-    });
-
-    return payload;
-  };
-
 export const getAllReviewsThunk = ( spotId ) => async ( dispatch ) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`)
     if(res.ok) {

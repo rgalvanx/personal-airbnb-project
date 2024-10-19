@@ -3,7 +3,7 @@ import { deleteReviewThunk } from "../../store/review";
 import { useDispatch } from "react-redux";
 import './ConfirmDeleteReviewModal.css';
 
-function ConfirmDeleteReviewModal({ spotId, reviewId }) {
+function ConfirmDeleteReviewModal({ reviewId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 

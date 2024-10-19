@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createReviewThunk, getAllReviewsThunk } from "../../store/review";
+import { createReviewThunk } from "../../store/review";
 import './AddReviewModal.css';
 import { FaStar } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
-const AddReviewModal = ({spotId, setNewReview}) => {
+const AddReviewModal = ({ spotId }) => {
     const dispatch = useDispatch();
     const spot = useSelector(state => state.reviews)
     const sessionUser = useSelector(state => state.session)
@@ -22,7 +21,7 @@ const AddReviewModal = ({spotId, setNewReview}) => {
         if(review.length < 10) errors.review = 'Review must be at least 10 characters long';
         if(stars < 1 || stars > 5) errors.stars = 'Stars must be between 1 and 5';
         setErrors(newErrors)
-    }, [review, stars])
+    }, [review, stars, errors])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
