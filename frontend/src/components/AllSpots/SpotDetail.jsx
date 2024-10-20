@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { loadOneSpotThunk } from "../../store/spot";
 import './SpotDetail.css'
 import { FaStar } from "react-icons/fa";
@@ -15,21 +15,15 @@ const SpotDetail = () => {
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
     const sessionUser = useSelector(state => state.session);
-    // const rev = useSelector(state => state.reviews[spotId])
-    // const oldReviews = useSelector(state => state.reviews)
-    const reviews = useSelector(state =>
-        Object.values(state.reviews).filter(review => review.spotId === +spotId)
-    );
+    const reviews = useSelector(state => Object.values(state.reviews).filter(review => review.spotId === +spotId));
     const sorted = reviews.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    const navigate = useNavigate();
 
-    const [ newReview, setNewReview ] = useState(0);
-
-    console.log(spotId)
 
     useEffect(() => {
         dispatch(loadOneSpotThunk(spotId))
         dispatch(getAllReviewsThunk(spotId))
-    }, [dispatch, spotId, newReview]);
+    }, [dispatch, spotId]);
 
 
     if(!spot || !spot.Owner ) return null;
@@ -38,6 +32,7 @@ const SpotDetail = () => {
         alert('feature coming soon')
     }
 
+    const roundUp = Math.round(spot.avgRating * 100) / 100
 
     return (
         <div className="spot_details">
@@ -66,29 +61,21 @@ const SpotDetail = () => {
                     <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
                     <p>{spot.description}</p>
                 </div>
-                {/* <div className="">
-                </div>
-                <div className="spot_reservation">
-                <div className="">
-                </div>
-                <div className="spot_rating">
-                </div>
-                </div> */}
                 <div className="reserve_box">
                     <p className='spot_reserve_price'>{spot.price}$ night </p>
                 <button className='reserve_button' onClick={handleReservation}>Reserve</button>
-                    <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</p>
+                    <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{roundUp} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</p>
                 </div>
 
             </div>
             <div>
                 <div className="review_container">
-                    <h3><FaStar /> {!spot.numReviews ? "NEW": <>{spot.avgRating} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</h3>
+                    <h3><FaStar /> {!spot.numReviews ? "NEW": <>{roundUp} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</h3>
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId && spot.numReviews === 0 && <p>Be the first to post a review!</p>}
                 <div className="spot_reviews">
                     {sessionUser.user && sessionUser.user.id !== spot.ownerId &&
                     !reviews.filter(review => review.userId === sessionUser.user.id).length > 0 &&
-                    <button><OpenModalMenuItem modalComponent={<AddReviewModal  spotId={spotId} setNewReview={setNewReview}/>} itemText={'Post Your Review'} /></button>}
+                    <button><OpenModalMenuItem modalComponent={<AddReviewModal navigate={navigate} spotId={spotId}/>} itemText={'Post Your Review'} /></button>}
                     <div className="all_reviews">{sorted.map((review) => {
                         const date = new Date(review.updatedAt);
                         const newDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
@@ -97,7 +84,7 @@ const SpotDetail = () => {
                                 <h3>{review.User.firstName}</h3>
                                 <p>{newDate}</p>
                                 <p>{review.review}</p>
-                                {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal reviewId={review.id} spotId={spotId} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
+                                {sessionUser.user && sessionUser.user.id === review.User.id && <button><OpenModalMenuItem modalComponent={<ConfirmDeleteReviewModal navigate={navigate} reviewId={review.id} spotId={spotId} deleteType={'Review'}/>}itemText={'Delete'}/></button>}
                             </div>
                         )
                     })}

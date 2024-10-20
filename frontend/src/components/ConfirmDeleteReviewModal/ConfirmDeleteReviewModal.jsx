@@ -3,14 +3,15 @@ import { deleteReviewThunk } from "../../store/review";
 import { useDispatch } from "react-redux";
 import './ConfirmDeleteReviewModal.css';
 
-function ConfirmDeleteReviewModal({ reviewId }) {
+function ConfirmDeleteReviewModal({ reviewId, navigate }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
 
-    const deleteSpot = async () => {
+    const deleteReview = async () => {
         await dispatch(deleteReviewThunk(reviewId))
-        .then(closeModal)
+        closeModal();
+        navigate(0)
     }
 
     return (
@@ -20,7 +21,7 @@ function ConfirmDeleteReviewModal({ reviewId }) {
                 <p className="confirmation_note">Are you sure you want to delete this review?</p>
             </div>
             <div className="buttons">
-                <button className="yes_button" onClick={deleteSpot}>Yes (Delete Review)</button>
+                <button className="yes_button" onClick={deleteReview}>Yes (Delete Review)</button>
                 <button className='no_button' onClick={closeModal}>No (Keep Review)</button>
             </div>
         </div>

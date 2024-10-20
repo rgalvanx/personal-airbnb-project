@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createReviewThunk } from "../../store/review";
+import { createReviewThunk, getAllReviewsThunk } from "../../store/review";
 import './AddReviewModal.css';
 import { FaStar } from "react-icons/fa";
 
-const AddReviewModal = ({ spotId }) => {
+const AddReviewModal = ({ spotId, navigate }) => {
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.reviews)
     const sessionUser = useSelector(state => state.session)
     const { closeModal } = useModal();
     const [ review, setReview ] = useState('');
@@ -18,28 +17,23 @@ const AddReviewModal = ({ spotId }) => {
 
     useEffect(() => {
         const newErrors = {};
-        if(review.length < 10) errors.review = 'Review must be at least 10 characters long';
-        if(stars < 1 || stars > 5) errors.stars = 'Stars must be between 1 and 5';
+        if(review.length < 10) newErrors.review = 'Review must be at least 10 characters long';
+        if(stars < 1 || stars > 5) newErrors.stars = 'Stars must be between 1 and 5';
         setErrors(newErrors)
-    }, [review, stars, errors])
+    }, [review, stars])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmission(true);
         const newReview = { review, stars }
-        console.log(spot)
         if(Object.values(errors).length) return;
-        await dispatch(createReviewThunk( sessionUser.user, newReview, spotId ));
-        // setNewReview((prev) => prev + 1)
-        closeModal();
+        const res = await dispatch(createReviewThunk( sessionUser.user, newReview, spotId ));
+        if(res) {
+            await dispatch(getAllReviewsThunk(spotId))
+            setSubmission(true);
+            navigate(0)
+            closeModal();
+        }
     }
-
-    // useEffect(() => {
-    //     if(submission) {
-    //         setErrors(validateInput());
-    //     }
-
-    // }, [ stars, review, submission ])
 
     return (
         <form className="review_form" onSubmit={handleSubmit}>
@@ -65,6 +59,7 @@ const AddReviewModal = ({ spotId }) => {
             </div>
             <div className="submit_review">
                 <button disabled={review.length < 10 || stars < 1}
+                type="submit"
                 className="submit_review">Submit Review</button>
                 {submission && errors.review && <p className="reviewerrors">{errors.review}</p>}
                 {submission && errors.stars && <p className="reviewerrors">{errors.stars}</p>}

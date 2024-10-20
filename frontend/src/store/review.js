@@ -65,7 +65,6 @@ export const deleteReviewThunk = ( reviewId ) => async ( dispatch ) => {
         return deletedReview
     } else {
         const error = await res.json();
-        console.log('here')
         return error;
     }
 }
