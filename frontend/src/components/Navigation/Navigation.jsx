@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import { FaHouseUser } from 'react-icons/fa';
-// import { FaUser } from 'react-icons/fa';
+
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);

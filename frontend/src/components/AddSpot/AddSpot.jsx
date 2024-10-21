@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './AddSpot.css';
 import { createSpotThunk, loadAllSpotsThunk } from "../../store/spot";
-// import * as spotActions from '../../store/spot'
 
 const AddSpot = () => {
     const navigate = useNavigate();
