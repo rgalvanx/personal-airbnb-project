@@ -126,12 +126,12 @@ const UpdateSpot = () => {
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your space, any special amenities like fast wifi or parking,
                     and what you love about the neighborhood.</p>
-                <input
+                <textarea
                 value={description}
                 className='description_box'
                 placeholder="Please write at least 30 characters"
                 onChange={(e) => setDescription(e.target.value)}
-                ></input>
+                ></textarea>
                 {submitted && errors.description && <p className="errors">{errors.description}</p>}
                 </div>
                 <div className="spot_title">
