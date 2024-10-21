@@ -42,10 +42,16 @@ const ManageSpot = () => {
                                 <span><FaStar />{spot.avgRating && spot.avgRating !== "no current reviews" ? spot.avgRating : "NEW" }</span>
                             </div>
                         </div>
-                        </Link>
+                            </Link>
                         <div className="manage_confirm_buttons">
-                            <button className="updatespot_button"><NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
-                            <button className="deletespot_button"><OpenModalMenuItem modalComponent={<ConfirmDeleteSpotModal spotId={spot.id}/>} itemText={'Delete'}/></button>
+                            <button
+                            className="updatespot_button">
+                                <NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
+                            <button
+                            className="deletespot_button"><OpenModalMenuItem
+                            modalComponent={<ConfirmDeleteSpotModal
+                                spotId={spot.id}/>}
+                                itemText={'Delete'}/></button>
                         </div>
                     </div>
                 ))}

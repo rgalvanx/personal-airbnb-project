@@ -57,6 +57,8 @@
     height: 30px;
     align-items: center;
 }
+
+
 .deletespot_button:hover {
     cursor: pointer;
 }
