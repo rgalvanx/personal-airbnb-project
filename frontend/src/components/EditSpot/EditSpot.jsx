@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import './EditSpot.css';
-import { loadAllSpotsThunk, updateSpotThunk } from "../../store/spot";
+import { updateSpotThunk } from "../../store/spot";
 
 const UpdateSpot = () => {
     const navigate = useNavigate();
@@ -16,8 +16,6 @@ const UpdateSpot = () => {
     const [ city, setCity ] = useState('');
     const [ state, setState ]= useState('');
     const [ country, setCountry ] = useState('');
-    // const [ lat, setLat ] = useState('');
-    // const [ lng, setLng ] = useState('');
     const [ price, setPrice ] = useState('');
     const [ previewImage, setPreviewImage ] = useState('');
     const [ image2, setImages2 ] = useState('');
@@ -27,9 +25,6 @@ const UpdateSpot = () => {
     const [ submitted, setSubmitted ] = useState(false);
     const [ errors, setErrors ] = useState({});
 
-    useEffect(() => {
-        dispatch(loadAllSpotsThunk());
-    }, [dispatch])
 
     useEffect(() => {
         const errors = {};
@@ -45,8 +40,6 @@ const UpdateSpot = () => {
         if(city.length <= 0) errors.city = 'City is required'
         if(state.length <= 0) errors.state = 'State is required'
         if(country.length <= 0) errors.country = 'Country is required';
-        // if(lat < -90 || lat > 90) errors.lat = 'Latitude must be between -90 and 90';
-        // if(lng < -180 || lng > 180) errors.lng = 'Longitude must be between -180 and 180';
         if(price <= 0) errors.price = 'Price must be a positive number';
         if(!previewImage) errors.previewImage = 'Preview image must be provided';
         if(!imageExt(previewImage)) errors.previewImage = 'Please provide a valid image';
@@ -54,6 +47,7 @@ const UpdateSpot = () => {
         if(image3 && !imageExt(image3)) errors.image3 = 'Please provide a valid image';
         if(image4 && !imageExt(image4)) errors.image4 = 'Please provide a valid image';
         if(image5 && !imageExt(image5)) errors.image5 = 'Please provide a valid image';
+
 
         setErrors(errors);
     }, [name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5 ])
@@ -71,17 +65,15 @@ const UpdateSpot = () => {
 
     useEffect(() => {
         if(spot) {
-            const { name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5} = spot
+            const { name, description, address, city, state, country, price, image2, image3, image4, image5} = spot
             setName(name);
             setDescription(description);
             setAddress(address);
             setCity(city);
             setState(state);
             setCountry(country);
-            // setLat('');
-            // setLng('');
             setPrice(price);
-            setPreviewImage(previewImage);
+            setPreviewImage('');
             setImages2(image2);
             setImages3(image3);
             setImages4(image4);
@@ -129,18 +121,6 @@ const UpdateSpot = () => {
                     onChange={(e) => setState(e.target.value)}
                     ></input>
                     {submitted && errors.state && <p className="errors">{errors.state}</p>}
-                {/* <div className="last_input"> */}
-                    {/* <label>Latitude</label>
-                    <input
-                    value={lat}
-                    onChange={(e) => setLat(+e.target.value)}
-                    ></input>,
-                    <label>Longitude</label>
-                    <input
-                    value={lng}
-                    onChange={(e) => setLng(+e.target.value)}
-                    ></input>
-                </div> */}
                 </div>
                 <div className="spot_description">
                 <h3>Describe your place to guests</h3>

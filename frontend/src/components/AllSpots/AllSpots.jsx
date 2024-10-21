@@ -23,12 +23,14 @@ const AllSpots = () => {
         value={toolTip}
         onMouseOut={() => setToolTip(null)}
         onMouseOver={() => setToolTip(spot.id)}
-        key={spot?.id}>
+        key={spot?.id}
+        title={`${spot.name}`}>
             <Link
             key={spot?.id}
             to={`/spots/${spot?.id}`}
             className="SPOTS"
             >
+                {/* <span className="tool_tip_text">{spot.name}</span> */}
                 {toolTip === spot.id ? <h4 className="toolTip">{spot.name}</h4> : <h3 className="no-show"></h3>}
                 <img src={spot.previewImage} alt={spot.name}></img>
                     <div className="this_spot_details">

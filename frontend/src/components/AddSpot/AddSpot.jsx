@@ -15,8 +15,6 @@ const AddSpot = () => {
     const [ city, setCity ] = useState('');
     const [ state, setState ]= useState('');
     const [ country, setCountry ] = useState('');
-    // const [ lat, setLat ] = useState('');
-    // const [ lng, setLng ] = useState('');
     const [ price, setPrice ] = useState(0);
     const [ previewImage, setPreviewImage ] = useState('');
     const [ image2, setImages2 ] = useState('');
@@ -40,9 +38,8 @@ const AddSpot = () => {
         if(city.length <= 0) errors.city = 'City is required'
         if(state.length <= 0) errors.state = 'State is required'
         if(country.length <= 0) errors.country = 'Country is required';
-        // if(lat < -90 || lat > 90) errors.lat = 'Latitude must be between -90 and 90';
-        // if(lng < -180 || lng > 180) errors.lng = 'Longitude must be between -180 and 180';
         if(price <= 0 ) errors.price = 'Price must be a positive number';
+        if(previewImage === undefined) errors.previewImage = 'Provide valid image'
         if(!previewImage) errors.previewImage = 'Preview image must be provided';
         if(!imageExt(previewImage)) errors.previewImage = 'Please provide a valid image';
         if(image2 && !imageExt(image2)) errors.image2 = 'Please provide a valid image';
@@ -71,8 +68,6 @@ const AddSpot = () => {
             setCity('');
             setState('');
             setCountry('');
-            // setLat('');
-            // setLng('');
             setPrice(0);
             setPreviewImage('')
             setImages2('');
@@ -129,18 +124,6 @@ const AddSpot = () => {
                     onChange={(e) => setState(e.target.value)}
                     ></input>
                     {submitted && errors.state && <p className="newerrors">{errors.state}</p>}
-                {/* <div className="last_input"> */}
-                    {/* <label>Latitude</label>
-                    <input
-                    value={lat}
-                    onChange={(e) => setLat(+e.target.value)}
-                    ></input>,
-                    <label>Longitude</label>
-                    <input
-                    value={lng}
-                    onChange={(e) => setLng(+e.target.value)}
-                    ></input>
-                </div> */}
                 </div>
                 <div className="spot_description">
                 <h3>Describe your place to guests</h3>

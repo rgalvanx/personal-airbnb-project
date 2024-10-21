@@ -2,9 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteSpotThunk, loadAllSpotsThunk } from "../../store/spot";
-// import { useModal } from "../../context/Modal";
 import { FaStar } from "react-icons/fa";
-// import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
 import { getAllReviewsThunk } from "../../store/review";
 import './ManageSpot.css'
 import ConfirmDeleteSpotModal from "../ConfirmDeleteSpotModal/ConfirmDeleteSpotModal";
@@ -14,16 +12,11 @@ import { NavLink } from "react-router-dom";
 const ManageSpot = () => {
 
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const { closeModal } = useModal();
+
     const sessionUser = useSelector(state => state.session.user);
     const spots = useSelector(state => state.spots)
     const usersSpots = Object.values(spots).filter(spot => spot.ownerId === sessionUser.id);
-    // const reviews = useSelector(state => Object.values(state.reviews))
-    // const betterReviews = Object.values(reviews).filter(review => review.ownerId === sessionUser.id);
-    // const reviews = useSelector(state =>
-        //     Object.values(state.reviews).filter(review => review.spotId === +spotId)
-        // );
+
         useEffect(() => {
             dispatch(loadAllSpotsThunk());
             dispatch(getAllReviewsThunk());

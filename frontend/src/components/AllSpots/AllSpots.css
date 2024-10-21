@@ -2,17 +2,21 @@
     display: flex;
     flex-wrap: wrap;
     margin: 50px 100px;
-    width: 100%;
+    gap: 20px;
+    justify-content: space-between;
 }
 
 .spot_owner {
     padding-left: 30px;
 }
 
+
 .Spot_container {
-    padding: 10px;
-    width: fit-content;
+    display: flex;
+    flex: 1 1 calc(25% - 20px);
+    justify-content: start;
 }
+
 .Spot_container img {
     display: flex;
     align-self: center;

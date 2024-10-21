@@ -62,9 +62,9 @@ const SpotDetail = () => {
                     <p>{spot.description}</p>
                 </div>
                 <div className="reserve_box">
-                    <p className='spot_reserve_price'>{spot.price}$ night </p>
+                    <p className='spot_reserve_price'>{spot.price}$ night <><FaStar className="this_star"></FaStar>{!spot.numReviews ? "NEW": <>{roundUp} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</></p>
                 <button className='reserve_button' onClick={handleReservation}>Reserve</button>
-                    <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{roundUp} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</p>
+                    {/* <p className='rating_reservation'> <FaStar></FaStar>{!spot.numReviews ? "NEW": <>{roundUp} · {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}</>}</p> */}
                 </div>
 
             </div>
