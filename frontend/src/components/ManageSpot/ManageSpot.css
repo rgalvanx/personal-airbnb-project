@@ -1,11 +1,15 @@
 .manage_title {
     padding: 20px 40px 10px 40px;
 }
+a {
+    text-decoration: none;
+}
 
 .create_spot_button {
     padding: 10px;
     margin: 0px 60px 30px 60px;
     height: 40px;
+    text-decoration: none;
 }
 .manage_container {
     display: flex;
@@ -18,12 +22,18 @@
 .manage_spots_container {
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
     justify-content: space-evenly;
     align-content: center;
     flex-wrap: wrap;
     margin: 40px 60px;
+    padding: 20px 10px 10px 10px;
     width: 400px;
-    border: black 1px solid;
+    border: black 2px solid;
+}
+
+.main_manage {
+    text-decoration: none;
 }
 
 .manage_spots_container img {
@@ -43,12 +53,14 @@
 .bottom_manage {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
     padding: 5px 20px;
 }
 .manage_confirm_buttons {
     display: flex;
     justify-content: space-between;
     width: 65%;
+    margin-top: 5px;
 }
 
 .deletespot_button {

@@ -84,3 +84,10 @@ input {
     color: red;
     margin: 0px;
 }
+textarea {
+    border-radius: 8px;
+}
+input {
+    border-radius: 8px;
+    height: 20px;
+}
