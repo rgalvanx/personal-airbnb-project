@@ -1,15 +1,19 @@
 .spots_container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    /* display: flex;
+    flex-wrap: wrap; */
     margin: 50px 100px;
     gap: 20px;
     justify-content: space-between;
 }
 
 .spot_owner {
-    padding-left: 30px;
+    padding: 0px 30px;
+    background-color: lightgray;
+    border-radius: 10px;
 }
-
 
 .Spot_container {
     display: flex;
@@ -27,9 +31,10 @@
 .SPOTS {
     display: flex;
     flex-direction: column;
-    border: black solid 1px;
+    border: black solid 2.5px;
     width: 400px;
     height: 350px;
+    text-decoration: none;
 }
 
 .allSpots_details {
@@ -58,6 +63,8 @@
 .this_spot_details {
     display: flex;
     justify-content: space-between;
+    font-size: larger;
+    text-decoration: none;
 }
 
 .this_spot_price {
@@ -67,7 +74,10 @@
     margin: 0px;
     position: relative;
     padding: 0px 30px;
-    background-color: white;
+    background-color: lavender;
+}
+img {
+    border-radius: 10px;
 }
 
 button {

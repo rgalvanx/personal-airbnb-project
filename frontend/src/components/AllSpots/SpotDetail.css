@@ -1,7 +1,9 @@
 #root {
-    height:  100vh;
 }
-
+body {
+    background-color: lavender;
+    font-weight: 900;
+}
 .spot_images {
     display: flex;
     justify-content: space-between;
@@ -26,7 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border: black 1px solid;
+    border: black 2.5px solid;
     padding: 10px;
     border-radius: 10px;
 
@@ -51,7 +53,7 @@
     justify-content: space-between;
     padding: 20px;
     margin-top: 50px;
-    border-bottom: black 1px solid;
+    border-bottom: black 2.5px solid;
 
 }
 
@@ -59,7 +61,7 @@
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
-    height: 40%;
+    height: fit-content;
     margin-bottom: 20px;
 }
 .preview_image {
@@ -82,8 +84,8 @@
     gap: 15px;
     margin: 0px 0px;
     width: 70%;
-    height: 100%;
 }
+
 .rest_images img {
     width: 100%;
     height: 100%;
@@ -113,5 +115,8 @@
 }
 
 .each_review {
-    margin-bottom: 100px;
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 80px;
 }

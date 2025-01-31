@@ -46,7 +46,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className='profile_button' onClick={toggleMenu}>
         <FaUser /> Profile
       </button>
       <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
