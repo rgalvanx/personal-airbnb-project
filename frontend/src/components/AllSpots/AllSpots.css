@@ -1,10 +1,7 @@
 .spots_container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-    /* display: flex;
-    flex-wrap: wrap; */
-    margin: 50px 100px;
+    margin: 50px 50px;
     gap: 20px;
     justify-content: space-between;
 }
@@ -24,7 +21,7 @@
 .Spot_container img {
     display: flex;
     align-self: center;
-    height: 200px;
+    height: 150px;
     width: 80%;
 }
 
