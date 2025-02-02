@@ -51,10 +51,14 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
         {user ? (
-          < div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'white', padding: '5px', borderRadius: '8px', zIndex: '3'}} className='icon_button'>
+          < div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'white', padding: '5px', borderRadius: '8px', position: 'relative', width: '120px'}} className='icon_button'>
             <li>Hello, {user.firstName}</li>
             <li className='last_li'>{user.email}</li>
-            <Link className='manage_spots' to='/spots/current'>Manage Spots</Link>
+            <Link
+              className='manage_spots'
+              to='/spots/current'
+              onClick={toggleMenu}>Manage Spots
+            </Link>
             <li className='logout_button'>
               <button  onClick={logout}>Log Out</button>
             </li>

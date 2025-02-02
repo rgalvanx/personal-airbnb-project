@@ -31,7 +31,6 @@
     border: black solid 2.5px;
     width: 400px;
     text-decoration: none;
-    z-index: 2;
 }
 
 .allSpots_details {
@@ -78,6 +77,7 @@ img {
 }
 
 button {
+    font-weight: 900;
     border-radius: 10px;
     background-color: darkgrey;
 }

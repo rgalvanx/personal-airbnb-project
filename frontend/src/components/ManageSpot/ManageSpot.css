@@ -1,21 +1,28 @@
 .manage_title {
     padding: 20px 40px 10px 40px;
 }
+
+item {
+    font-weight: 900;
+}
+
 a {
+    font-weight: 900;
     text-decoration: none;
 }
 
 .create_spot_button {
+    font-weight: 900;
+    background-color: white;
     padding: 10px;
-    margin: 0px 60px 30px 60px;
+    margin: 0px 0px 0px 60px;
     height: 40px;
     text-decoration: none;
 }
 .manage_container {
     display: flex;
     flex-wrap: wrap;
-    margin: 50px 100px;
-    gap: 0px;
+    gap: 20px;
     justify-content: space-between;
 }
 
