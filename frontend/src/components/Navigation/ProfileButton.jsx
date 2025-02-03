@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName}  style={{ listStyleType: 'none' }}ref={ulRef}>
         {user ? (
-          < div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'white', padding: '5px', borderRadius: '8px', position: 'relative', width: '120px'}} className='icon_button'>
+          < div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'white', borderRadius: '8px', position: 'relative', width: '120px'}} className='icon_button'>
             <li>Hello, {user.firstName}</li>
             <li className='last_li'>{user.email}</li>
             <Link

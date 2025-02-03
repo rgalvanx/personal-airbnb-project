@@ -12,6 +12,8 @@
     border-radius: 10px;
 }
 
+
+
 .Spot_container {
     display: flex;
     flex: 1 1 calc(25% - 20px);
@@ -66,9 +68,13 @@
 .this_spot_price {
     padding: 10px;
 }
+
+.icon_button li,
+.icon_button a {
+    padding: 2.5px 10px;
+}
 .toolTip {
     margin: 0px;
-    position: relative;
     padding: 0px 30px;
     background-color: lavender;
 }
