@@ -21,8 +21,8 @@
 .drop-menu {
     display: flex;
     flex-direction: column;
-    justify-items: center;
-    width: fit-content;
+    width: 100px;
+    justify-items: start;
     height: fit-content;
 }
 .left_nav {
@@ -98,7 +98,13 @@
     border-bottom: solid black 1px;
     margin: 0px 0px 5px 0px;
 }
+
+.profile-dropdown item {
+    padding: 8.5px;
+}
+
 .profile-dropdown {
+    position: relative;
     padding: 0px;
 }
 .manage_spots {

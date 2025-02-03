@@ -65,7 +65,7 @@ const UpdateSpot = () => {
 
     useEffect(() => {
         if(spot) {
-            const { name, description, address, city, state, country, price, image2, image3, image4, image5} = spot
+            const { name, description, address, city, state, country, price, previewImage, image2, image3, image4, image5} = spot
             setName(name);
             setDescription(description);
             setAddress(address);
@@ -73,7 +73,7 @@ const UpdateSpot = () => {
             setState(state);
             setCountry(country);
             setPrice(price);
-            setPreviewImage('');
+            setPreviewImage(previewImage);
             setImages2(image2);
             setImages3(image3);
             setImages4(image4);

@@ -1,6 +1,6 @@
 .spots_container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
     margin: 50px 50px;
     gap: 20px;
     justify-content: space-between;
