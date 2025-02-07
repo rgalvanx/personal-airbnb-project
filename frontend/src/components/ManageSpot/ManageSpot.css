@@ -20,37 +20,26 @@ a {
     text-decoration: none;
 }
 .manage_container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    gap: 10px;
+    padding-top: 20px;
+    justify-self:center;
+
+}
+.manage_spots_container img {
 }
 
 .manage_spots_container {
-    display: flex;
-    flex-direction: column;
+    padding: 15px;
     border-radius: 20px;
-    justify-content: space-evenly;
-    align-content: center;
-    flex-wrap: wrap;
-    margin: 40px 60px;
-    padding: 20px 10px 10px 10px;
-    width: 400px;
     border: black 2px solid;
 }
 
 .main_manage {
     text-decoration: none;
 }
-
-.manage_spots_container img {
-    display: flex;
-    align-self: center;
-    justify-self: space-around;
-    width: 300px;
-    height: 200px;
-}
-
 
 .manage_spot_description {
     display: flex;
@@ -61,7 +50,6 @@ a {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    padding: 5px 20px;
 }
 .manage_confirm_buttons {
     display: flex;
