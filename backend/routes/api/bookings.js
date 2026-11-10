@@ -67,7 +67,8 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         }
     }
 
-    const newBooking = await booking.update(req.body)
+    const newBooking = await booking.update({startDate, endDate});
+    console.log(startDate, endDate);
     return res.json(newBooking)
 })
 
