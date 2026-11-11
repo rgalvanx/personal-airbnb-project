@@ -91,3 +91,9 @@ input {
     border-radius: 8px;
     height: 20px;
 }
+
+select {
+    margin-top: 5px;
+    border-radius: 8px;
+    height: 26px;
+}

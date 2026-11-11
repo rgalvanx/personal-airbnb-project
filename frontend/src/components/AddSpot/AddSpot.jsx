@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './AddSpot.css';
 import { createSpotThunk, loadAllSpotsThunk } from "../../store/spot";
+import {Countries, US_STATES} from '../../data/locations';
 
 const AddSpot = () => {
     const navigate = useNavigate();
@@ -92,11 +93,14 @@ const AddSpot = () => {
             <form >
                 <div className='spot_input'>
                     <label>Country</label>
-                    <input
-                    value={country}
-                    placeholder="Country"
-                    onChange={(e) => setCountry(e.target.value)}
-                    ></input>
+                  <select value={country} onChange={(e) => setCountry(e.target.value)}>
+                    <option value="">Select a country</option>
+                    {Countries.map((country) => (
+                        <option key={country} value={country}>
+                            {country}
+                        </option>
+                    ))}
+                </select>
                     {submitted && errors.country && <p className="newerrors"> {errors.country}</p>}
                 </div>
                 <div className="spot_input">
