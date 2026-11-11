@@ -93,7 +93,7 @@ const AddSpot = () => {
             <form >
                 <div className='spot_input'>
                     <label>Country</label>
-                  <select value={country} onChange={(e) => setCountry(e.target.value)}>
+                  <select value={country} onChange={(e) => {setCountry(e.target.value); setState('')}}>
                     <option value="">Select a country</option>
                     {Countries.map((country) => (
                         <option key={country} value={country}>
@@ -121,11 +121,22 @@ const AddSpot = () => {
                     ></input>
                     {submitted && errors.city && <p className="newerrors">{errors.city}</p>}
                     <label>State</label>
-                    <input
-                    value={state}
-                    placeholder="State"
-                    onChange={(e) => setState(e.target.value)}
-                    ></input>
+                    {country === 'United States' ? (
+                        <select value={state} onChange={(e) => setState(e.target.value)}>
+                            <option value="">Select a state</option>
+                            {US_STATES.map((state) => (
+                                <option key={state} value={state}>
+                                    {state}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                        <input
+                            value={state}
+                            placeholder="State / Province / Region"
+                            onChange={(e) => setState(e.target.value)}
+                        />
+                    )}
                     {submitted && errors.state && <p className="newerrors">{errors.state}</p>}
                 </div>
                 <div className="spot_description">
